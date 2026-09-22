@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2026年9月26日至10月6日埃及11日跟团游互动行程攻略">
+  <title>埃及 11 日｜我们的国庆之旅</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+  <style>
+    :root {
+      --sand: #f2e6cf;
+      --sand-light: #fbf7ef;
+      --paper: #fffdf8;
+      --ink: #172925;
+      --muted: #66736f;
+      --night: #0e3435;
+      --night-2: #15515a;
+      --nile: #167d8b;
+      --nile-soft: #d6ebeb;
+      --gold: #d9953f;
+      --gold-soft: #f5e2c3;
+      --coral: #bd5d45;
+      --line: rgba(23, 41, 37, .14);
+      --shadow: 0 24px 70px rgba(46, 37, 20, .10);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 3%, rgba(217, 149, 63, .14), transparent 28rem),
+        var(--sand-light);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .shell { overflow: clip; }
+    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topbar {
+      position: absolute;
+      z-index: 20;
+      inset: 0 0 auto;
+      padding: 16px 0;
+      color: #29413b;
+    }
+    .topbar-inner { display: flex; justify-content: space-between; gap: 24px; align-items: center; }
+    .brand { display: flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 650; letter-spacing: .15em; }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #ac8c5866; border-radius: 50%; color: #9b773f; }
+    .nav { display: flex; gap: 24px; font-size: 13px; }
+    .nav a { text-decoration: none; }
+    .nav a:hover { color: #8b622e; }
+
+    .hero {
+      position: relative;
+      min-height: 0;
+      padding: 0;
+      display: grid;
+      align-items: center;
+      color: #233c35;
+      overflow: hidden;
+      background: #eee5d5;
+    }
+    .hero-photo { position: absolute; inset: 0 0 0 auto; width: 72%; height: 100%; object-fit: cover; object-position: 50% 48%; filter: saturate(.64) sepia(.16); }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #eee5d5 0%, #eee5d5 27%, #eee5d5e8 39%, #eee5d550 61%, #eee5d50a 100%), linear-gradient(180deg, #eee5d560, transparent 38%, #d4ba8530);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; padding: 91px 0 58px; }
+    .hero-grid { max-width: 760px; }
+    .eyebrow { display:flex; align-items:center; gap:10px; margin: 0 0 10px; color: #83673e; font-size: 10px; font-weight: 600; letter-spacing: .24em; }
+    .eyebrow::before { content:''; width:24px; height:1px; background:#a48758; }
+    .hero-place { position:absolute; right:0; bottom:36px; color:#34433be6; font-size:9px; letter-spacing:.2em; }
+    h1, h2 { font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-weight: 500; }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(38px, 5vw, 60px); line-height: 1.1; letter-spacing: -.04em; }
+
+    .overview { position: relative; z-index: 3; margin-top: -22px; }
+    .metrics { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--paper); box-shadow: var(--shadow); }
+    .metric { min-height: 0; padding: 14px 16px; border-right: 1px solid var(--line); }
+    .metric:last-child { border-right: 0; }
+    .metric strong { display: block; font-size: 23px; line-height: 1.3; letter-spacing: -.04em; }
+    .metric span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+
+    section { padding: 94px 0; }
+    .section-kicker { margin: 0 0 9px; color: var(--nile); font-size: 11px; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(36px, 5vw, 58px); line-height: 1.08; letter-spacing: -.04em; }
+    .section-lead { max-width: 760px; margin: 17px 0 0; color: var(--muted); }
+
+    .before-section { padding: 20px 0; }
+    .before-section .transit-strip { margin-top: 0; }
+    .countdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.48); }
+    .countdown-card { position: relative; padding: 18px 20px; border-right: 1px solid var(--line); }
+    .countdown-card:last-child { border-right: 0; }
+    .countdown-card.urgent { background: var(--gold-soft); }
+    .countdown-step { color: var(--nile); font-size: 11px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .countdown-card h3 { margin: 5px 0 6px; font-size: 16px; line-height: 1.35; }
+    .countdown-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .transit-strip { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; margin-top: 12px; padding: 15px 18px; border-radius: 14px; color: #fff; background: linear-gradient(120deg, var(--night), var(--night-2)); }
+    .transit-strip strong { display: block; font-size: 13px; }
+    .transit-strip span { color: rgba(255,255,255,.65); font-size: 10px; }
+    .transit-arrow { color: #f0c686; font-size: 18px; }
+
+    .route-section { padding: 28px 0; background: #f0e4ce; }
+    .route-layout { display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(390px, .97fr); gap: 32px; align-items: start; margin-top: 0; }
+    .map-panel { position: sticky; top: 18px; overflow: hidden; border: 1px solid var(--line); border-radius: 28px; background: var(--paper); box-shadow: var(--shadow); }
+    .map-head { display: flex; justify-content: space-between; gap: 16px; padding: 19px 22px 13px; }
+    .map-head strong { display: block; font-size: 14px; }
+    .map-source { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; }
+    .legend { display: flex; gap: 13px; color: var(--muted); font-size: 10px; }
+    .legend i { display: inline-block; width: 19px; height: 0; margin-right: 5px; vertical-align: middle; border-top: 3px solid; }
+    .legend .air { border-color: var(--nile); border-top-style: dashed; }
+    .legend .road { border-color: var(--gold); }
+    .legend .water { border-color: #3d7ba2; border-top-style: dotted; }
+    #map { height: 610px; background: linear-gradient(145deg, #d9e9e6, #c8dedd); }
+    .map-fallback { display: grid; place-items: center; height: 100%; padding: 40px; color: var(--muted); text-align: center; }
+
+    .itinerary-panel { min-width: 0; }
+    .timeline { display: flex; gap: 7px; max-width: 100%; padding: 6px; overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.48); scrollbar-width: none; }
+    .timeline::-webkit-scrollbar { display: none; }
+    .day-tab { flex: 0 0 auto; min-width: 70px; min-height: 54px; padding: 8px 11px; border: 0; border-radius: 11px; color: var(--muted); background: transparent; cursor: pointer; text-align: center; }
+    .day-tab:hover { color: var(--ink); background: rgba(255,255,255,.66); }
+    .day-tab[aria-selected="true"] { color: #fff; background: var(--night); }
+    .day-tab strong, .day-tab span { display: block; }
+    .day-tab strong { font-size: 13px; }
+    .day-tab span { margin-top: 1px; font-size: 9px; letter-spacing: .04em; }
+    .day-detail { margin-top: 12px; padding: 24px; border: 1px solid var(--line); border-radius: 22px; background: var(--paper); box-shadow: 0 18px 48px rgba(46,37,20,.07); }
+    .day-detail-head { display: grid; grid-template-columns: 48px 1fr; gap: 15px; align-items: start; }
+    .day-detail-index { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; color: #fff; background: var(--night); font-size: 12px; font-weight: 850; }
+    .day-date { color: var(--nile); font-size: 10px; font-weight: 850; letter-spacing: .09em; }
+    .day-title { display: block; margin: 3px 0 5px; font-size: 19px; line-height: 1.35; }
+    .day-copy { display: block; color: var(--muted); font-size: 12px; }
+    .day-expanded { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .day-fact { display: block; min-width: 0; }
+    .day-fact b { display: block; margin-bottom: 3px; color: var(--nile); font-size: 10px; letter-spacing: .06em; }
+    .day-fact span { display: block; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .day-fact.climate { padding: 10px 12px; border-radius: 11px; background: var(--gold-soft); }
+    .day-fact.climate b { color: var(--coral); }
+    .day-guides { grid-column: 1 / -1; display: grid; gap: 10px; margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .day-guide { padding: 13px 14px; border-radius: 12px; }
+    .day-guide.play { background: var(--nile-soft); }
+    .day-guide.caution { background: #f3e4dc; }
+    .day-guide b { display: block; margin-bottom: 4px; color: var(--nile); font-size: 11px; }
+    .day-guide.caution b { color: var(--coral); }
+    .site-caution-head { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .site-caution-head button { padding:5px 9px; flex-shrink:0; border:1px solid #bd5d4540; border-radius:6px; color:#85412f; background:#ffffff80; font-size:11px; cursor:pointer; }
+    .site-note { border-top:1px solid #bd5d4525; margin-top:8px; }
+    .site-note summary { padding:11px 0 7px; cursor:pointer; color:#573f34; font-size:12px; font-weight:650; line-height:1.65; }
+    .site-note summary::marker { color:#a3644f; }
+    .site-note summary em { margin-left:5px; font-size:10px; font-style:normal; font-weight:500; color:#895a41; }
+    .site-note summary small { display:block; padding-left:15px; color:var(--muted); font-weight:400; font-size:11px; }
+    .day-guide .site-note ul { gap:8px; margin:4px 0 14px; padding-left:17px; font-size:12px; line-height:1.85; }
+    .day-guide .site-note li strong { color:#864b36; }
+    .site-carry { margin:12px 0 0; padding-top:10px; border-top:1px solid #bd5d4525; color:var(--muted); font-size:11px; line-height:1.8; }
+    .day-guide span { display: block; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .day-guide ul { display: grid; gap: 9px; margin: 8px 0 0; padding-left: 17px; color: var(--ink); font-size: 12px; line-height: 1.7; }
+    .day-guide li strong { color: #17616a; }
+    .day-guide-note { margin: 9px 0 0; color: var(--muted); font-size: 10px; }
+    .photo-reference { display: grid; grid-template-columns: minmax(120px, 42%) minmax(0, 1fr); gap: 12px; margin: 12px 0; padding: 10px; border: 1px solid rgba(23,97,106,.15); border-radius: 10px; background: rgba(255,255,255,.65); }
+    .photo-open { position: relative; align-self: start; padding: 0; border: 0; border-radius: 7px; overflow: hidden; background: #e7e5dc; cursor: zoom-in; }
+    .photo-open img { display: block; width: 100%; height: 190px; object-fit: contain; }
+    .photo-open .photo-zoom { position: absolute; right: 5px; bottom: 5px; padding: 2px 5px; border-radius: 4px; background: #183a36d9; color: white; font-size: 9px; }
+    .photo-reference figcaption { min-width: 0; font-size: 11px; line-height: 1.6; }
+    .photo-reference strong { display: block; color: var(--nile); }
+    .photo-reference p { margin: 4px 0 6px; }
+    .photo-reference .photo-credit { font-size: 9px; overflow-wrap: anywhere; }
+    .photo-links { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 7px; font-size: 10px; }
+    .photo-links a, .photo-credit a { text-decoration: underline; text-underline-offset: 2px; }
+    .photo-picks { grid-column: 1 / -1; display: flex; gap: 7px; flex-wrap: wrap; margin-top: 0; }
+    .photo-picks button { position: relative; padding: 3px; border: 2px solid transparent; border-radius: 7px; background: #eee9df; color: var(--nile); cursor: pointer; font: inherit; }
+    .photo-picks img { display: block; width: 45px; height: 56px; object-fit: contain; }
+    .photo-picks button[aria-pressed="true"] { border-color: var(--nile); background: #d6e9e5; }
+    .photo-picks .photo-number { position: absolute; right: 3px; bottom: 3px; padding: 0 4px; border-radius: 3px; background: #183a36d9; color: white; font-size: 9px; line-height: 15px; }
+    .photo-gallery-label { margin: 10px 0 -5px; color: var(--nile); font-size: 10px; font-weight: 700; }
+    .attraction-tabs { display:flex; gap:6px; overflow-x:auto; max-width:100%; padding:10px 0 5px; scrollbar-width:thin; }
+    .attraction-tabs button { flex:0 0 auto; padding:6px 10px; border:1px solid var(--line); border-radius:7px; background:#fff9; color:var(--nile); font:inherit; font-size:11px; cursor:pointer; }
+    .attraction-tabs button[aria-selected="true"] { background:var(--nile); color:white; border-color:var(--nile); }
+    .attraction-note { margin:5px 0 0; font-size:10px; line-height:1.6; color:var(--muted); }
+    .attraction-note em { display:inline-block; margin-right:5px; padding:0 5px; border-radius:3px; background:var(--gold-soft); color:#845022; font-style:normal; font-weight:700; }
+    .photo-dialog-nav { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 10px; font-size: 12px; }
+    .photo-dialog-nav[hidden] { display: none; }
+    .photo-dialog { width: min(900px, 94vw); max-height: 92vh; padding: 16px; border: 0; border-radius: 14px; background: var(--paper); color: var(--ink); }
+    .photo-dialog::backdrop { background: #102721d9; }
+    .photo-dialog header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .photo-dialog button { padding: 7px 14px; border: 1px solid var(--line); border-radius: 8px; background: white; cursor: pointer; }
+    .photo-dialog img { display: block; width: 100%; max-height: 68vh; object-fit: contain; }
+    .photo-dialog p { margin: 8px 0 0; font-size: 12px; }
+    @media (max-width: 480px) {
+      .photo-reference { grid-template-columns: minmax(0, 1fr); }
+      .photo-open img { height: 200px; }
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tag { padding: 4px 8px; border-radius: 7px; color: #17616a; background: var(--nile-soft); font-size: 10px; font-weight: 760; }
+    .tag.hot { color: #8b4f1d; background: var(--gold-soft); }
+    .tag.hard { color: #8a3f31; background: #f2d9d2; }
+
+    .tools-section { background: #f5ecdc; }
+    .tool-tabs { display: flex; gap: 8px; max-width: 100%; margin-top: 34px; padding: 6px; overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.48); scrollbar-width: none; }
+    .tool-tabs::-webkit-scrollbar { display: none; }
+    .tool-tab { flex: 0 0 auto; min-height: 42px; padding: 9px 16px; border: 0; border-radius: 11px; color: var(--muted); background: transparent; font-size: 13px; font-weight: 780; cursor: pointer; }
+    .tool-tab:hover { color: var(--ink); background: rgba(255,255,255,.62); }
+    .tool-tab[aria-selected="true"] { color: #fff; background: var(--night); }
+    .tool-panel { margin-top: 16px; padding: 30px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.66); }
+    .tool-panel[hidden] { display: none; }
+    .notice-line { margin:14px 0 0; color:var(--nile); font-size:12px; line-height:1.7; }
+    .logistics-table { width:100%; border-collapse:collapse; margin-top:16px; font-size:12px; }
+    .logistics-table th, .logistics-table td { text-align:left; vertical-align:top; padding:10px 8px; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+    .logistics-table th { color:var(--nile); }
+    .notice-details { margin-top:14px; font-size:12px; line-height:1.8; }
+    .notice-details summary { cursor:pointer; color:var(--nile); }
+    .notice-details p { margin:7px 0; }
+    .tool-panel-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; }
+    .tool-panel-head h3 { margin: 0; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(27px, 3.5vw, 38px); font-weight: 500; line-height: 1.15; letter-spacing: -.025em; }
+    .tool-panel-lead { max-width: 620px; margin: 0; color: var(--muted); font-size: 13px; }
+
+    .weather-callout { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-top: 22px; padding: 20px; border-left: 4px solid var(--gold); background: var(--gold-soft); }
+    .weather-callout strong { font-size: 24px; }
+    .weather-callout p { margin: 0; color: #6d5636; font-size: 13px; }
+    .forecast-note { margin: 14px 0 0; color: var(--muted); font-size: 10px; }
+
+    .tool-panel.money-panel, .tool-panel.return-panel { color: #fff; border-color: transparent; background: var(--night); }
+    .money-panel .tool-panel-lead, .return-panel .tool-panel-lead { color: rgba(255,255,255,.65); }
+    .money-grid { display: grid; grid-template-columns: .86fr 1.14fr; gap: 24px; margin-top: 26px; }
+    .total-box { padding: 30px; border: 1px solid rgba(255,255,255,.15); border-radius: 24px; background: rgba(255,255,255,.07); }
+    .total-label { color: rgba(255,255,255,.62); font-size: 12px; }
+    .total { margin: 2px 0 14px; font-size: clamp(42px, 6vw, 70px); font-weight: 850; letter-spacing: -.06em; }
+    .total-note { color: rgba(255,255,255,.62); font-size: 12px; }
+    .rate-line { display: flex; gap: 10px; align-items: center; margin-top: 24px; color: rgba(255,255,255,.72); font-size: 12px; }
+    .rate-line input { width: 84px; padding: 7px 9px; border: 1px solid rgba(255,255,255,.22); border-radius: 8px; color: #fff; background: rgba(0,0,0,.13); }
+    .extras { display: grid; gap: 10px; }
+    .extra { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 17px 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 18px; background: rgba(255,255,255,.055); }
+    .extra input { width: 18px; height: 18px; accent-color: #e0a14c; }
+    .extra strong { display: block; font-size: 13px; }
+    .extra span { display: block; color: rgba(255,255,255,.58); font-size: 10px; }
+    .extra-price { font-size: 13px; font-weight: 800; text-align: right; }
+    .money-warning { margin-top: 14px; color: #f2c98c; font-size: 11px; }
+
+    .prep-grid { display: grid; grid-template-columns: 1fr; margin-top: 24px; }
+    .check-panel { padding: 0; }
+    .panel-head { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
+    .panel-head h3 { margin: 0; font-size: 19px; }
+    .progress-text { color: var(--nile); font-size: 12px; font-weight: 800; }
+    .check-progress { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(23,41,37,.09); }
+    .check-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--nile); transition: width .2s ease; }
+    .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; margin-top: 22px; }
+    .check-item { display: grid; grid-template-columns: auto 1fr; gap: 9px; align-items: start; color: var(--muted); font-size: 12px; }
+    .check-item input { margin-top: 4px; accent-color: var(--nile); }
+    .field-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+    .field-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.58); }
+    .field-card strong { display: block; margin: 8px 0 7px; font-size: 16px; }
+    .field-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .field-icon { color: var(--nile); font-size: 19px; font-weight: 850; }
+    .return-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+    .return-card { padding: 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(255,255,255,.06); }
+    .return-card span { color: #efc27d; font-size: 11px; font-weight: 850; letter-spacing: .1em; }
+    .return-card h3 { margin: 9px 0 11px; font-size: 18px; }
+    .return-card ul { display: grid; gap: 8px; margin: 0; padding-left: 18px; color: rgba(255,255,255,.68); font-size: 12px; }
+
+    footer { padding: 48px 0; color: rgba(255,255,255,.68); background: #092f31; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 28px; align-items: end; }
+    .footer-inner strong { display: block; color: #fff; font-family: Georgia, "Noto Serif SC", serif; font-size: 26px; font-weight: 500; }
+    .footer-inner p { max-width: 650px; margin: 8px 0 0; font-size: 11px; }
+    .source-link { color: #f3c887; font-size: 12px; }
+
+    .leaflet-container { font-family: inherit; }
+    .leaflet-popup-content-wrapper { border-radius: 14px; box-shadow: 0 14px 30px rgba(0,0,0,.15); }
+    .leaflet-popup-content { margin: 12px 14px; font-size: 12px; }
+    .city-marker { display: grid; place-items: center; width: 25px !important; height: 25px !important; margin: -12px 0 0 -12px !important; border: 3px solid #fff; border-radius: 50%; color: #fff; background: var(--night); box-shadow: 0 4px 12px rgba(0,0,0,.24); font-size: 9px; font-weight: 900; }
+    .city-label { border: 0 !important; color: #173b3c !important; background: rgba(255,253,248,.90) !important; box-shadow: 0 3px 10px rgba(20,49,48,.10) !important; font-size: 10px !important; font-weight: 850 !important; }
+    .city-label::before { display: none !important; }
+    .region-label { border: 0 !important; color: rgba(20,66,70,.58) !important; background: transparent !important; box-shadow: none !important; font-family: Georgia, "Noto Serif SC", serif !important; font-size: 13px !important; font-style: italic; letter-spacing: .08em; }
+    .region-label::before { display: none !important; }
+
+    @media (max-width: 940px) {
+      .nav { display: none; }
+      .hero { min-height: auto; }
+      .route-layout, .money-grid, .prep-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .metric:nth-child(3) { border-right: 0; }
+      .metric:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .map-panel { position: relative; top: auto; }
+      .field-grid { grid-template-columns: 1fr 1fr; }
+      .return-grid { grid-template-columns: 1fr; }
+      .tool-panel-head { display: grid; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 26px, 1180px); }
+      .hero-inner { padding: 80px 0 48px; }
+      h1 { font-size: 40px; }
+      .hero-photo { width:100%; object-position:58% 50%; }
+      .hero::after { background:linear-gradient(90deg, #eee5d5fa 0%, #eee5d5eb 24%, #eee5d599 46%, #eee5d522 77%), linear-gradient(180deg, #eee5d540, transparent 50%, #eee5d520); }
+      .hero-place { right:2px; bottom:30px; font-size:8px; letter-spacing:.12em; }
+      .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .metric { min-height: 0; padding: 10px 9px; }
+      .metric strong { font-size: 21px; }
+      .metric span { font-size: 10px; }
+      section { padding: 72px 0; }
+      .checklist { grid-template-columns: 1fr; }
+      .countdown-grid, .field-grid { grid-template-columns: 1fr; }
+      .before-section { padding: 16px 0; }
+      .countdown-card { padding: 15px 17px; }
+      .countdown-card { border-right: 0; border-bottom: 1px solid var(--line); }
+      .countdown-card:last-child { border-bottom: 0; }
+      .transit-strip { grid-template-columns: 1fr; }
+      .transit-arrow { display: none; }
+      .day-expanded { grid-template-columns: 1fr; }
+      .day-guides { grid-template-columns: 1fr; }
+      .footer-inner { display: grid; }
+      #map { height: 470px; }
+      .map-head { display: grid; }
+      .tool-panel { padding: 21px 18px; }
+      .tool-tabs { margin-right: -13px; padding-right: 19px; border-right: 0; border-radius: 14px 0 0 14px; }
+      .tool-tab { min-height: 44px; }
+      .weather-callout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 18 11 5l8 13H3Z M11 5l2 13 M15 11l6 7h-3"/><circle cx="18" cy="6" r="2"/></svg></span><span>EGYPT · 2026</span></div>
+        <nav class="nav" aria-label="页面导航">
+          <a href="#before">往返交通</a>
+          <a href="#route">行程</a>
+          <a href="#tools">工具箱</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img class="hero-photo" src="assets/photos/giza.jpg" alt="沙漠中的吉萨金字塔群" width="960" height="400" fetchpriority="high">
+        <div class="container hero-inner">
+          <div class="hero-grid">
+            <div>
+              <p class="eyebrow">国庆旅行攻略</p>
+              <h1>埃及 · 11日</h1>
+            </div>
+          </div>
+          <span class="hero-place" aria-hidden="true">GIZA · 吉萨</span>
+        </div>
+      </section>
+
+      <div class="container overview" aria-label="产品概览">
+        <div class="metrics">
+          <div class="metric"><strong>11天</strong><span>9.26—10.06</span></div>
+          <div class="metric"><strong>3晚</strong><span>尼罗河游轮</span></div>
+          <div class="metric"><strong>2晚</strong><span>红海度假酒店</span></div>
+          <div class="metric"><strong>50座</strong><span>用车 · 非团人数</span></div>
+          <div class="metric"><strong>米娜宫</strong><span>早餐 / 同价下午茶</span></div>
+          <div class="metric"><strong>1件23kg</strong><span>托运 · 以出票为准</span></div>
+        </div>
+      </div>
+
+      <section id="before" class="before-section" aria-label="往返交通">
+        <div class="container">
+          <div class="transit-strip">
+            <div><strong>9月26日 · 广州白云T3 · 66号门</strong><span>20:00准时集合，23:20起飞；建议16:00前抵达广州，留足市区/航站楼转移时间。</span></div>
+            <div class="transit-arrow">→</div>
+            <div><strong>10月6日 · 广州 → 厦门</strong><span>航班表15:30落地；入境取行李建议至少预留2小时，另加去车站或换乘时间，票选可退改。</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="route" class="route-section" aria-label="地图与逐日行程">
+        <div class="container">
+          <div class="route-layout">
+            <div class="map-panel">
+              <div class="map-head">
+                <div><strong>埃及境内路线地图</strong><span class="map-source">国界数据：Natural Earth · 城市坐标按实际经纬度</span></div>
+                <div class="legend"><span><i class="air"></i>内飞</span><span><i class="road"></i>大巴</span><span><i class="water"></i>游轮</span></div>
+              </div>
+              <div id="map" aria-label="埃及旅行路线交互地图"><div class="map-fallback">地图载入中；下方逐日行程不受网络影响。</div></div>
+            </div>
+            <div class="itinerary-panel">
+              <div class="timeline" id="timeline" role="tablist" aria-label="逐日行程"></div>
+              <article class="day-detail" id="day-detail" role="tabpanel" aria-live="polite"></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="tools-section">
+        <div class="container">
+          <p class="section-kicker">Travel Toolkit</p>
+          <h2>旅行工具箱</h2>
+          <p class="section-lead">航班住宿、天气、预算、行李和返程按需切换；各景点注意事项已放进逐日行程。</p>
+
+          <div class="tool-tabs" role="tablist" aria-label="旅行工具箱分类">
+            <button class="tool-tab" id="logistics-tab" type="button" role="tab" aria-controls="logistics" aria-selected="false">航班住宿</button>
+            <button class="tool-tab" id="weather-tab" type="button" role="tab" aria-controls="weather" aria-selected="true">天气穿衣</button>
+            <button class="tool-tab" id="budget-tab" type="button" role="tab" aria-controls="budget" aria-selected="false">费用预算</button>
+            <button class="tool-tab" id="prepare-tab" type="button" role="tab" aria-controls="prepare" aria-selected="false">行李清单</button>
+            <button class="tool-tab" id="return-tab" type="button" role="tab" aria-controls="return" aria-selected="false">返程处理</button>
+          </div>
+
+          <div id="logistics" class="tool-panel" role="tabpanel" aria-labelledby="logistics-tab" hidden>
+            <div class="tool-panel-head"><h3>出团通知速查</h3><p class="tool-panel-lead">所有航班时间均为当地时间。通知书确认用车50座，不代表实际团人数。</p></div>
+            <table class="logistics-table"><caption>航班确认表</caption><thead><tr><th scope="col">日期 / 航班</th><th scope="col">航段</th><th scope="col">当地起降时间</th></tr></thead><tbody>
+              <tr><td>9月26日 · MS959</td><td>广州 → 开罗</td><td>23:20 → 9月27日04:50</td></tr>
+              <tr><td>9月27日 · MS082</td><td>开罗 → 阿斯旺</td><td>06:45 → 08:05</td></tr>
+              <tr><td>10月6日 · MS958</td><td>开罗 → 广州</td><td>00:20 → 15:30</td></tr>
+            </tbody></table>
+            <p class="notice-line">开罗去程计划衔接1小时55分钟。通知书列每人托运1件23kg；手提额度未写明，内飞是否同额及是否直挂ASW以出票、值机确认为准。</p>
+            <table class="logistics-table"><caption>酒店与游轮确认名称</caption><thead><tr><th scope="col">入住晚</th><th scope="col">通知书名称</th><th scope="col">说明</th></tr></thead><tbody>
+              <tr><td>9月27日 · 1晚</td><td>AZAL LAGOONS</td><td>阿布辛贝特色酒店，不挂星</td></tr>
+              <tr><td>9月28—30日 · 3晚</td><td>SEMRAMIS 2</td><td>通知书列五星游轮、河景房；楼层随机</td></tr>
+              <tr><td>10月1—2日 · 2晚</td><td>MOVENPICK</td><td>红海五星度假酒店；分店全名、地址未写明</td></tr>
+              <tr><td>10月3—4日 · 2晚</td><td>SONESTA Hotel Cairo</td><td>开罗五星酒店；床型入住时确认</td></tr>
+            </tbody></table>
+            <p class="forecast-note">星级为通知书表述，并非重新核验评级。黄金周酒店仍可能按同档次调整；老瀑布、米娜宫是餐饮体验，不是住宿酒店。私人联系人请查看原通知书，此可转发网页不展示。</p>
+            <details class="notice-details"><summary>原通知书的时间冲突与旧模板提示</summary><p>首页集合20:00，D1正文“正常20:20”：按较早的20:00到齐。返程航班表和D11标题写00:20/15:30，D10及D11正文仍有00:15/15:15：暂按表格，机票优先。</p><p>本次9月底至10月初按埃及夏令时UTC+3，北京比埃及快5小时；通知书“冬令时晚6小时”不适用于本次行程。汇率“1美元=30埃镑”和博物馆“将于11月4日开放”属未更新文字，不用来判断实际汇率或展厅开放。</p></details>
+          </div>
+
+          <div id="weather" class="tool-panel" role="tabpanel" aria-labelledby="weather-tab">
+            <div class="tool-panel-head">
+              <h3>全程穿衣原则：外热内冷</h3>
+              <p class="tool-panel-lead">南部最高约40–42℃，开罗与亚历山大最低约20–23℃；每天的具体温度已经放进逐日卡片。</p>
+            </div>
+            <div class="weather-callout"><strong>三层穿法</strong><p>速干打底＋轻薄防晒层＋可收纳薄外套。户外戴帽、墨镜并补涂SPF50+；进入飞机、大巴、游轮和博物馆时加外套。</p></div>
+            <p class="forecast-note">预报来源：Open-Meteo，更新于2026年9月21日；10月1日之后仍属于中期预报，建议出发前及每天早晨再复核一次。</p>
+          </div>
+
+          <div id="budget" class="tool-panel money-panel" role="tabpanel" aria-labelledby="budget-tab" hidden>
+            <div class="tool-panel-head">
+              <h3>两个人，大概准备多少钱</h3>
+              <p class="tool-panel-lead">保留原两人团费估算¥40,398，通知书未重报团费；勾选计算自费，另计通知书小额费用。不含保险、购物和厦门—广州交通。</p>
+            </div>
+            <div class="money-grid">
+              <div class="total-box">
+                <div class="total-label">两人团费估算＋小额费用＋已选自费</div>
+                <div class="total" id="budget-total">—</div>
+                <div class="total-note" id="budget-breakdown">按勾选项目计算</div>
+                <label class="rate-line">美元汇率 <input id="exchange-rate" type="number" min="6" max="9" step="0.01" value="7.25" aria-label="美元兑人民币汇率"> CNY/USD</label>
+              </div>
+              <div>
+                <div class="extras" id="extras">
+                  <label class="extra"><input type="checkbox" data-usd="170" checked><span><strong>帝王谷＋女王神庙</strong><span>USD 85/人 × 2 · 补齐卢克索西岸行程</span></span><span class="extra-price">USD 170</span></label>
+                  <label class="extra"><input type="checkbox" data-usd="170" checked><span><strong>红海游艇浮潜</strong><span>USD 85/人 × 2 · 含设备和船上午餐</span></span><span class="extra-price">USD 170</span></label>
+                  <label class="extra"><input type="checkbox" data-usd="100"><span><strong>卢克索神庙入内</strong><span>USD 50/人 × 2 · 原团仅外观</span></span><span class="extra-price">USD 100</span></label>
+                  <label class="extra"><input type="checkbox" data-usd="330"><span><strong>卢克索热气球</strong><span>USD 165/人 × 2 · 会进一步压缩睡眠</span></span><span class="extra-price">USD 330</span></label>
+                </div>
+                <div class="money-warning">默认两项只是预算建议，不代表已报名。四项均为8人起订，时间、天气、实际报价以当地确认为准。另预留耳机USD2＋船夫USD1＋马车夫USD1＝USD4/人，两人USD8；若合同已含，先核实避免重复支付。</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="prepare" class="tool-panel" role="tabpanel" aria-labelledby="prepare-tab" hidden>
+            <div class="tool-panel-head">
+              <h3>收拾行李，完成出行检查</h3>
+              <p class="tool-panel-lead">勾选状态会保存在当前浏览器，下次打开可以继续。</p>
+            </div>
+            <div class="prep-grid">
+              <div class="check-panel">
+                <div class="panel-head"><h3>出行清单</h3><span class="progress-text" id="check-progress-text">0 / 16</span></div>
+                <div class="check-progress" role="progressbar" aria-label="行李准备进度" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0"><span id="check-progress-bar"></span></div>
+                <div class="checklist" id="checklist">
+                  <label class="check-item"><input type="checkbox"><span>护照有效期超过2027年4月6日，至少3页空白页</span></label>
+                  <label class="check-item"><input type="checkbox"><span>确认护照由谁保管，保存领队电话与出团通知</span></label>
+                  <label class="check-item"><input type="checkbox"><span>境外医疗、紧急运送及取消保险</span></label>
+                  <label class="check-item"><input type="checkbox"><span>SPF50+、帽子、墨镜、防晒长袖</span></label>
+                  <label class="check-item"><input type="checkbox"><span>薄外套与女士清真寺用薄围巾</span></label>
+                  <label class="check-item"><input type="checkbox"><span>泳衣、水母衣和涉水鞋</span></label>
+                  <label class="check-item"><input type="checkbox"><span>补液盐、肠胃药、止泻药和晕车药</span></label>
+                  <label class="check-item"><input type="checkbox"><span>颈枕、眼罩和耳塞</span></label>
+                  <label class="check-item"><input type="checkbox"><span>牙刷牙膏、拖鞋等完整洗漱用品</span></label>
+                  <label class="check-item"><input type="checkbox"><span>欧标两圆脚转换插头</span></label>
+                  <label class="check-item"><input type="checkbox"><span>有清晰3C标识的充电宝</span></label>
+                  <label class="check-item"><input type="checkbox"><span>少量干净的USD 1、5、10面额现金</span></label>
+                  <label class="check-item"><input type="checkbox"><span>流量卡、eSIM或国际漫游</span></label>
+                  <label class="check-item"><input type="checkbox"><span>通知书托运1件23kg，内飞与手提额度已按出票核对</span></label>
+                  <label class="check-item"><input type="checkbox"><span>厦门往返广州交通已留足缓冲</span></label>
+                  <label class="check-item"><input type="checkbox"><span>没有携带无人机及敏感拍摄设备</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="return" class="tool-panel return-panel" role="tabpanel" aria-labelledby="return-tab" hidden>
+            <div class="tool-panel-head">
+              <h3>返程前、落地后、到家48小时</h3>
+              <p class="tool-panel-lead">把行李、交通和身体状态稳妥收尾。</p>
+            </div>
+            <div class="return-grid">
+              <article class="return-card"><span>10月5日 · 开罗机场前</span><h3>返程行李重新整理</h3><ul><li>液体、香精和大瓶护肤品放托运</li><li>充电宝、护照、药品和贵重物品随身</li><li>不要携带珊瑚、贝壳、文物或疑似古董</li><li>国际返程托运按1件23kg控制</li></ul></article>
+              <article class="return-card"><span>10月6日 · 广州落地</span><h3>先入境，再决定怎么回厦门</h3><ul><li>航班表15:30落地；建议至少预留2小时入境取行李，另加机场至车站或航站楼换乘时间</li><li>检查托运行李外观后再离开转盘</li><li>衔接晚班交通须可退改，赶不上就广州住一晚</li><li>保留登机牌与延误证明直到行程结束</li></ul></article>
+              <article class="return-card"><span>到家后48小时</span><h3>恢复身体并整理资料</h3><ul><li>补水、清淡饮食并尽快恢复国内作息</li><li>若持续发热、腹泻或脱水，及时就医并说明旅行史</li><li>备份照片，核对银行卡与境外消费</li><li>集中保存合同、票据和保险材料</li></ul></article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div><strong>按清单出发，平安回家。</strong><p>2026年9月22日按《9月26日埃及阿布辛贝游轮11天出团通知书》更新；通知书优先于原产品页面，现场顺序可能调整。航班以出票和航变为准。天气沿用9月21日预报，本次未刷新。</p><p>配图版权归原作者，保留署名与水印，仅作个人旅行参考；公开发布或商用前须另获授权。部分为笔记封面预览，高清图请查看原帖。</p></div>
+        <div><a class="source-link" href="https://vacations.ctrip.com/travel/detail/p61622857/?city=32&rv=1" target="_blank" rel="noreferrer">查看携程原产品 ↗</a><p class="photo-credit">封面：<a href="https://commons.wikimedia.org/wiki/File:Pyramids_of_the_Giza_Necropolis.jpg" target="_blank" rel="noopener noreferrer">KennyOMG</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>。画面经响应式裁切、调色与渐变叠加；该改编图像沿用相同许可。</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="photo-dialog-title">
+    <header><strong id="photo-dialog-title">拍照参考</strong><button type="button" id="photo-close" aria-label="关闭照片大图">关闭 ×</button></header>
+    <img id="photo-dialog-img" alt="">
+    <nav id="photo-dialog-nav" class="photo-dialog-nav" aria-label="参考照片切换" hidden><button type="button" id="photo-prev" aria-label="上一张参考照片">← 上一张</button><span id="photo-position" aria-live="polite"></span><button type="button" id="photo-next" aria-label="下一张参考照片">下一张 →</button></nav>
+    <p id="photo-dialog-copy"></p>
+    <p id="photo-dialog-credit"></p>
+  </dialog>
+  <script src="assets/portraits/credits.js"></script>
+  <script src="assets/xhs/data.js"></script>
+  <script src="assets/attractions/data.js"></script>
+  <script src="assets/attractions/catalog.js"></script>
+  <script src="assets/departure-notice.js"></script>
+  <script src="assets/site-notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script>
+    const days = [
+      { day: 1, date: '09.26 周六', title: '广州飞开罗', detail: '23:20起飞，飞行约11小时50分钟，夜宿飞机。', tags: ['国际航班', '集合约20:00'], level: '中', points: ['cairo'], before: '确认护照、登机牌和行李额度，晚饭吃清淡；广州集合前把手机时间保留中国时区。', carry: '颈枕、眼罩、耳塞、药物、充电线、保湿用品和一套替换衣物。', plan: '登机后把手表切到埃及时间，少喝酒、少刷手机，尽量完成第一轮长睡眠。' },
+      { day: 2, date: '09.27 周日', title: '开罗 → 阿斯旺 → 阿布辛贝', detail: '05:25落地，06:45内飞；再乘车约3.5小时，参观神庙及晚间声光秀，约23:00入住。', tags: ['全程最累', '阿布辛贝已含', '内飞'], level: '高', points: ['cairo','aswan','abusimbel'], before: '在广州值机时确认行李牌终点为ASW；落地开罗后紧跟领队走转机通道，不停留购物。', carry: '护照、全部药物、补液盐、充电宝、遮阳帽、防晒和一份能量零食。', plan: '车上优先补觉；到阿布辛贝先补水再参观。声光秀结束后不安排夜间活动，入住即休息。' },
+      { day: 3, date: '09.28 请假①', title: '阿布辛贝 → 阿斯旺', detail: '大坝、未完成方尖碑、努比亚村、老瀑布酒店下午茶与菲莱神庙；夜宿游轮。', tags: ['请假', '下午茶', '登船'], level: '中高', points: ['abusimbel','aswan'], before: '按最终通知确认真实叫早时间；房间退房前检查充电器、转换头和护照。', carry: '防晒、帽子、墨镜、瓶装水、补液盐及便于登船的轻便随身包。', plan: '阿斯旺陆地温度高，景点间及时补水；登船后先确认救生路线、餐厅楼层和次日叫早。' },
+      { day: 4, date: '09.29 请假②', title: '阿斯旺 → 康翁波 → 埃德福', detail: '游轮航行，参观康翁波和埃德福神庙，是全程相对舒缓的一天。', tags: ['请假', '游轮', '相对舒缓'], level: '低', points: ['aswan','komombo','edfu'], before: '游轮靠岸时间可能因水闸调整，前一晚记录导游发布的准确集合时间。', carry: '轻便相机包、备用电池、防晒、水和薄外套；护照按领队要求保管。', plan: '利用航行时间洗衣、充电和补觉；靠岸参观只带小包，不在码头临时脱团购物。' },
+      { day: 5, date: '09.30 请假③', title: '埃德福 → 卢克索', detail: '卡纳克神庙、尼罗河帆船、市集与马车；卢克索神庙仅车观，帝王谷自费。', tags: ['请假', '卡纳克', '帝王谷可选'], level: '中高', points: ['edfu','luxor'], before: '若已订帝王谷或热气球，前晚再次确认集合时间、保险与是否影响已含景点。', carry: '透气长袖、防晒、饮水、零钱；乘马车时相机装好腕带并抓稳扶手。', plan: '优先保证卡纳克和已预订的西岸项目；市集只用小额现金，不购买贵重物品。' },
+      { day: 6, date: '10.01 国庆', title: '卢克索 → 丹达拉 → 红海', detail: '途经丹达拉哈索尔神庙，首道门票已含；大巴约4小时，下午入住红海。', tags: ['丹达拉已含', '4小时大巴'], level: '中', points: ['luxor','dendera','redsea'], before: '退游轮前逐层检查房间；泳衣和红海用品放在容易取到的位置。', carry: '颈枕、晕车药、水、防晒；另带泳衣、水母衣和涉水鞋。', plan: '丹达拉拍摄重点放在彩色天花板与柱厅；抵达红海后先确认餐厅、海滩和救生区域。' },
+      { day: 7, date: '10.02 国庆', title: '红海全天自由活动', detail: '完整自由活动日。可参加USD 85/人的游艇浮潜，也可以留在酒店休息。', tags: ['自由活动', '浮潜可选', '恢复体力'], level: '低', points: ['redsea'], before: '出海前确认项目时长、接送、救生衣、面镜消毒和天气；晕船药提前服用。', carry: '水母衣、涉水鞋、速干毛巾、防水手机袋、防晒和换洗衣物。', plan: '上午出海就把下午留给休息；不擅长游泳必须全程穿救生衣，不单独离船。' },
+      { day: 8, date: '10.03 国庆', title: '红海 → 开罗', detail: '大巴约6小时，抵达后游览萨拉丁城堡与苏丹·哈桑清真寺外观。', tags: ['6小时大巴', '萨拉丁城堡'], level: '高', points: ['redsea','cairo'], before: '早餐清淡，提前使用洗手间；女士把薄围巾和过膝衣物放随身包。', carry: '颈枕、晕车药、湿巾、水、零食、薄围巾和充电宝。', plan: '长车程分段补水但避免一次大量饮用；进入宗教场所前关闭闪光灯并遵守着装要求。' },
+      { day: 9, date: '10.04 国庆', title: '大埃博＋金字塔＋老开罗', detail: '大埃及博物馆、金字塔和狮身人面像合计约4小时；下午老开罗与哈利利市场。', tags: ['核心日', '节奏偏快', '不含塔内'], level: '中高', points: ['cairo','giza'], before: '相机与手机充满电，先问清大埃博和金字塔各自集合时间及允许携带物品。', carry: '帽子、防晒、水、备用电池、小额现金；大包尽量留车上或按馆方要求寄存。', plan: '博物馆先看图坦卡蒙与核心展厅；金字塔先完成合影再听讲解，哈利利市场记住集合点。' },
+      { day: 10, date: '10.05 国庆', title: '开罗往返亚历山大', detail: '往返车程约6小时，游览后直接前往机场，次日00:15飞广州。', tags: ['长车程', '亚历山大', '夜宿飞机'], level: '高', points: ['cairo','alexandria','cairo'], before: '早晨直接完成返程打包，护照、充电宝和药物放随身包；托运行李控制在23kg内。', carry: '薄外套、颈枕、充电线、洗漱小包、药物和一套回国后可换的衣物。', plan: '亚历山大游览后直接去机场，不把重要物品留在大巴；晚餐清淡，登机后立刻休息。' },
+      { day: 11, date: '10.06 国庆', title: '下午抵达广州', detail: '15:15抵达白云机场。预留入境和提取行李时间，再衔接厦门交通。', tags: ['返程', '厦门段自理'], level: '中', points: ['cairo'], before: '落地前填写所需入境信息，检查座椅口袋、充电线和护照。', carry: '护照、返厦交通凭证、充电宝、薄外套和一份简单食物。', plan: '先完成入境取行李并检查箱体；如果衔接时间不足，直接改签或广州住一晚，不冒险赶票。' }
+    ];
+
+    const dayFacts = {
+      1: { schedule: '20:00左右广州白云机场集合；23:20乘MS959起飞。', included: '广州—开罗经济舱、税费及1件23kg托运行李。', meal: '晚餐自理；航班上按航空公司安排供餐。', stay: '夜宿飞机，飞行约11小时50分钟。', temp: '广州约25–32℃，可能有阵雨；机舱通常约22–24℃。', wear: '速干短袖配轻薄长裤，随身带薄外套和袜子；登机后及时加衣，避免睡着后着凉。' },
+      2: { schedule: '05:25抵达开罗；06:45—08:05飞阿斯旺；大巴约3.5小时；下午神庙约2小时，晚上声光秀约1小时，约23:00入住。', included: '开罗—阿斯旺内飞、阿布辛贝首道门票及声光秀。', meal: '机上早餐、打包午餐、酒店晚餐。', stay: '阿布辛贝当地参考酒店；具体以出团通知为准。', temp: '开罗清晨约20℃；阿斯旺、阿布辛贝午后约29–40℃，晴，几乎无雨。', wear: '透气速干上衣＋轻薄长裤，外加防晒长袖、宽檐帽和墨镜；清晨薄外套下机后即可收起。' },
+      3: { schedule: '早餐后返回阿斯旺；大坝与方尖碑约1.5小时，努比亚村约20分钟，下午茶约30分钟，菲莱神庙约30分钟。', included: '大坝、方尖碑、努比亚村、老瀑布酒店下午茶、菲莱神庙及往返船。', meal: '酒店早餐；游轮午餐、下午茶及游轮晚餐。', stay: '第1晚尼罗河游轮；舱房楼层由船方随机安排。', temp: '阿布辛贝、阿斯旺约29–40℃，晴到少云；午后暴晒，夜间仍偏热。', wear: '宽松速干短袖或防晒长袖＋薄长裤，穿透气运动鞋；帽子、墨镜和冰袖不要留在行李箱。' },
+      4: { schedule: '随游轮航行，经康翁波前往埃德福；两座神庙页面合计披露约1.5小时。', included: '康翁波神庙、埃德福神庙首道门票。', meal: '游轮早餐、午餐及晚餐。', stay: '第2晚尼罗河游轮；靠岸顺序可能因伊斯纳水闸调整。', temp: '阿斯旺至埃德福约28–39℃，多云到晴；甲板有风，室内冷气较足。', wear: '白天速干上衣＋轻薄长裤，甲板和餐厅备一件薄外套；靠岸参观穿包脚、防滑的运动鞋。' },
+      5: { schedule: '07:00左右早餐；卡纳克约1.5小时，尼罗河帆船约30分钟，市集约1小时，马车约20分钟。', included: '卡纳克首道门票、尼罗河船观、市集与马车体验；卢克索神庙仅车观。', meal: '游轮早餐、午餐及晚餐。', stay: '第3晚尼罗河游轮；帝王谷、女王神庙等为自费。', temp: '埃德福、卢克索约28–41℃，晴到少云；中午前后是全程最热时段之一。', wear: '浅色防晒长袖＋宽松薄长裤最稳妥，搭配透气运动鞋；可带降温巾，避免厚棉T恤和牛仔裤。' },
+      6: { schedule: '早餐后退船；乘车途经丹达拉，哈索尔神庙约50分钟；全段车程页面披露约4小时，15:00后红海自由活动。', included: '哈索尔神庙首道门票、前往红海用车。', meal: '早餐、红海酒店自助午餐及晚餐；无酒精饮料按房费安排。', stay: '红海5钻参考酒店第1晚，具体酒店以出团通知为准。', temp: '卢克索、丹达拉约30–42℃；抵达红海约30–34℃，体感最高约36℃。', wear: '神庙段穿防晒长袖和薄长裤；泳衣、水母衣可放随身包，抵达酒店后再换。大巴冷气下加薄外套。' },
+      7: { schedule: '全天自由活动；参加出海、沙漠、玻璃船等项目时以导游确认的集合时间为准。', included: '酒店内早餐、午餐、晚餐及既定无酒精饮料；自由活动无用车和导游。', meal: '三餐在红海酒店；参加外出项目时原酒店餐费通常不退。', stay: '红海5钻参考酒店第2晚。', temp: '红海约30–32℃，晴到少云，体感最高约35℃；海面风与阳光反射明显。', wear: '出海穿长袖水母衣＋泳裤＋涉水鞋，外搭速干罩衫；上岸立即擦干并换干衣，船舱备薄外套。' },
+      8: { schedule: '早餐后返回开罗，大巴约6小时；下午萨拉丁城堡与清真寺外观合计约1小时15分钟。', included: '开罗用车、萨拉丁城堡首道门票、苏丹·哈桑清真寺外观。', meal: '酒店早餐、途中盒餐、国家公园烤肉晚餐。', stay: '开罗5钻参考酒店第1晚。', temp: '红海约27–31℃；开罗约23–33℃，多云，途中温差约10℃。', wear: '透气短袖＋过膝薄长裤，车上盖薄外套；女士另带薄围巾，进入宗教场所时遮住肩膀和膝盖。' },
+      9: { schedule: '上午大埃博、金字塔及狮身人面像合计约4小时；下午老开罗和哈利利市场约1小时20分钟。', included: '大埃博、吉萨金字塔景区和狮身人面像首道门票；不含进入金字塔内部。', meal: '酒店早餐、金字塔观景午餐、鸽子晚餐。', stay: '开罗5钻参考酒店第2晚。', temp: '开罗、吉萨约23–33℃，多云；金字塔区域无遮挡，体感仍然偏热。', wear: '速干内搭＋可脱的轻薄防晒衫＋薄长裤；博物馆冷气下披外层，金字塔户外戴帽和墨镜。' },
+      10: { schedule: '早餐后前往亚历山大，单程约3小时；图书馆约35分钟，庞培柱、圆形剧场外观和凯特贝城堡约2小时；返回开罗后直接去机场。', included: '亚历山大图书馆、庞培柱及凯特贝城堡首道门票；圆形剧场外观。', meal: '酒店早餐、地中海海鲜午餐、中式团餐晚餐。', stay: '夜宿飞机；00:15乘MS958离开开罗。', temp: '开罗约24–36℃；亚历山大约21–31℃，多云且有海风，晚间机场转凉。', wear: '短袖或薄长袖＋轻薄长裤，带防风薄外套；返程机舱服装单独装进随身包，不要托运。' },
+      11: { schedule: '00:15开罗起飞；15:15抵达广州白云机场。', included: '开罗—广州经济舱、税费及1件23kg托运行李。', meal: '机上按航空公司安排供餐。', stay: '完成入境后自行衔接广州—厦门交通。', temp: '开罗出发约23–33℃；广州落地约21–30℃，可能有阵雨，机舱持续偏冷。', wear: '舒适长裤＋短袖打底＋薄外套，落地广州后按实际天气增减；雨具放在随身包外层。' }
+    };
+    days.forEach(day => Object.assign(day, dayFacts[day.day], departureNoticeUpdates[day.day]));
+
+    // Scenic and photographic suggestions follow the existing itinerary, not extra bookings.
+    const photoReferences = {
+      2: { id: 'abu-simbel', title: '阿布辛贝 · 侧身回头', tip: '人物站步道中间，身体侧转、前后错开双脚，回头看镜头。竖幅保留四尊巨像，人物约占画面下方四分之一；另一半也可用同样动作互拍。', search: '阿布辛贝 人像 回头 情侣 拍照' },
+      3: { id: 'philae', title: '菲莱 · 扶帽背影', tip: '像图中一样背对镜头，站在柱廊旁亮处，一只手轻扶帽檐。摄影者从侧后方拍，让柱列通向塔门；双人版可以并肩向前走，请同行人抓拍。', search: '菲莱神庙 人像 背影 情侣 拍照' },
+      4: { id: 'edfu', title: '埃德福 · 向神庙走去', tip: '顺步道慢走，手臂自然摆动，不必回头。横幅把人放在下方中轴，保留两侧塔门；双人版牵手并排走，先确认不会挡住其他游客。', search: '埃德福 人像 背影 牵手 拍照' },
+      5: { id: 'karnak', title: '卡纳克 · 巨柱间的小人', tip: '人站两排柱子的中轴，背对镜头、微微抬头。摄影者后退用竖幅带上柱顶，别把人拍太大；两人可一前一后站，形成探索神庙的画面。', search: '卡纳克神庙 巨柱 人像 情侣 机位' },
+      6: { id: 'red-sea-hotel', title: '红海酒店 · 度假人像', tip: '借鉴图里人物与棕榈树斜线的组合。你们可坐稳后侧身看海、手搭帽檐，不必模仿倒挂动作；从侧前方拍。此图并非本团酒店，是否有吊床以现场为准。', search: '赫尔格达 酒店 度假 人像 情侣 拍照' },
+      7: { id: 'red-sea', title: '红海 · 水下半身同框', tip: '借鉴人物在一侧、海底占另一侧的构图；同伴从侧前方拍，或用运动相机广角录视频再截帧。只参考画面，按项目要求穿救生衣，不模仿向珊瑚伸手的动作。', search: '红海 浮潜 人像 运动相机 拍照' },
+      8: { id: 'cairo', title: '开罗城堡 · 建筑前背影', tip: '背对镜头站在画面下方，看向穹顶，肩膀放松。摄影者后退拍竖幅，别切掉宣礼塔；进入宗教区域要遮肩，借鉴构图即可，不照搬图中露肩穿法。', search: '萨拉丁城堡 清真寺 人像 情侣 拍照' },
+      9: { id: 'giza', title: '金字塔 · 人物与三塔同框', tip: '图中人物坐在前景偏左，身体侧向、看画外，三塔放在上半幅。也可以站姿替代；骆驼不是必需道具，合影先谈好费用，并听从牵驼人安排、保持安全距离。', search: '吉萨 金字塔 人像 情侣 拍照 姿势' },
+      10: { id: 'qaitbay', title: '凯特贝 · 中轴远景人像', tip: '人物站在中央步道上，摄影者从允许进入的较高位置拍，让步道直指城门；人小、城堡大。若高处未开放，在地面沿中轴取景即可，不保证能复刻同一机位。', search: '凯特贝城堡 人像 中轴 情侣 拍照' }
+    };
+    const hotelPhotoReference = photoReferences[6];
+    if (typeof xhsPhotoData !== 'undefined' && typeof portraitCredits !== 'undefined') {
+      Object.assign(portraitCredits, xhsPhotoData.credits);
+      Object.entries(xhsPhotoData.albums).forEach(([day, refs]) => {
+        const previous = photoReferences[day];
+        // D6 now shows Dendera portraits, not the previous hotel stand-in.
+        photoReferences[day] = [...refs, ...(Number(day) === 6 || !previous ? [] : [previous])];
+      });
+    }
+    Object.assign(portraitCredits, attractionPhotoData.credits);
+    const attractionAlbums = {};
+    const selectedAttractions = {};
+    attractionCatalog.forEach(place => {
+      const base = place.baseDay ? photoReferences[place.baseDay] : [];
+      attractionAlbums[place.key] = [...(Array.isArray(base) ? base : [base]), ...(attractionPhotoData.albums[place.key] || [])].filter(Boolean);
+    });
+    attractionAlbums['red-sea'].push(hotelPhotoReference);
+    // The new departure notice explicitly includes the Hanging Church.
+    attractionAlbums['old-cairo'] = attractionAlbums['old-cairo'].map(ref => ({...ref, title:ref.title.replace('（入内待确认）','（拍摄以现场规则为准）')}));
+    const escapePhotoText = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function photoCreditMarkup(credit) {
+      return `${credit.platform === '小红书' ? '小红书' : '旅行博客'}${credit.sourceKind === '笔记封面' ? ' · 封面预览' : ''} · © <a href="${escapePhotoText(credit.source)}" target="_blank" rel="noopener noreferrer" title="${escapePhotoText(credit.postTitle || '原作者文章')}">${escapePhotoText(credit.author)} · 原文</a>`;
+    }
+    function getPhotoReferences(day) {
+      const refs = attractionAlbums[day];
+      if (!refs || typeof portraitCredits === 'undefined') return [];
+      return (Array.isArray(refs) ? refs : [refs]).filter(ref => portraitCredits[ref.id]);
+    }
+    function renderPhotoReference(day, index = 0) {
+      const dayOrder = {3:['dam','obelisk','nile','nubian','old-cataract','philae'],5:['karnak','nile','market','luxor-street','luxor-temple','valley','hatshepsut']};
+      const places = attractionCatalog.filter(place => place.days.includes(Number(day)));
+      if (dayOrder[day]) places.sort((a,b) => dayOrder[day].indexOf(a.key) - dayOrder[day].indexOf(b.key));
+      if (!places.length) return '';
+      const place = places.find(place => place.key === selectedAttractions[day]) || places[0];
+      selectedAttractions[day] = place.key;
+      const refs = getPhotoReferences(place.key);
+      if (!refs.length) return '';
+      const selected = Math.min(Math.max(index, 0), refs.length - 1);
+      const ref = refs[selected];
+      const credit = portraitCredits[ref.id];
+      const picks = `<div class="photo-picks" role="group" aria-label="${escapePhotoText(place.label)}参考照片">${refs.map((photo, i) => `<button type="button" data-photo-pick="${i}" data-album-day="${day}" aria-pressed="${i === selected}" aria-label="查看第${i + 1}张：${escapePhotoText(photo.title)}"><img src="${escapePhotoText(portraitCredits[photo.id].src)}" width="45" height="56" alt="" loading="lazy"><span class="photo-number">${i + 1}</span></button>`).join('')}</div>`;
+      const tabs = `<div class="attraction-tabs" role="tablist" aria-label="当天景点照片">${places.map(p => `<button type="button" role="tab" id="attraction-${day}-${p.key}" aria-controls="attraction-panel-${day}" data-attraction="${p.key}" data-album-day="${day}" aria-selected="${p.key === place.key}" tabindex="${p.key === place.key ? 0 : -1}">${escapePhotoText(p.label)}${p.badge ? ' · '+escapePhotoText(p.badge) : ''}</button>`).join('')}</div>`;
+      return `<div class="photo-album" data-photo-album="${day}">${tabs}<div role="tabpanel" id="attraction-panel-${day}" aria-labelledby="attraction-${day}-${place.key}"><p class="attraction-note">${place.badge ? `<em>${escapePhotoText(place.badge)}</em>` : ''}${escapePhotoText(place.note)}</p><p class="photo-gallery-label">${escapePhotoText(place.label)} · ${refs.length} 张拍照与观看参考 · 点大图放大</p><figure class="photo-reference"><button type="button" class="photo-open" data-photo-day="${place.key}" data-photo-index="${selected}" aria-label="放大查看${escapePhotoText(ref.title)}"><img src="${escapePhotoText(credit.src)}" alt="${escapePhotoText(ref.title)}" loading="lazy" width="${credit.width || 768}" height="${credit.height || 960}"><span class="photo-zoom">${selected + 1} / ${refs.length} · 放大 ↗</span></button><figcaption><strong>${escapePhotoText(ref.title)}</strong><p>${escapePhotoText(ref.tip || place.tip)}</p><span class="photo-credit">${photoCreditMarkup(credit)}</span><div class="photo-links"><a href="https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(ref.search || place.label + ' 人像拍照')}" target="_blank" rel="noopener noreferrer">小红书搜索 ↗</a><a href="${escapePhotoText(credit.source)}" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a></div></figcaption>${picks}</figure></div></div>`;
+    }
+    const photoDialog = document.getElementById('photo-dialog');
+    document.addEventListener('error', event => {
+      if (!event.target.matches?.('.photo-open img')) return;
+      const button = event.target.closest('button');
+      button.textContent = '图片未加载，可点署名查看来源';
+      button.disabled = true;
+    }, true);
+    document.getElementById('photo-close').addEventListener('click', () => photoDialog.close());
+    let activePhoto = { day: 'abu-simbel', index: 0 };
+    function showPortrait(day, index) {
+      const refs = getPhotoReferences(day);
+      if (!refs.length) return;
+      const selected = ((index % refs.length) + refs.length) % refs.length;
+      activePhoto = { day, index: selected };
+      const ref = refs[selected];
+      const credit = portraitCredits[ref.id];
+      document.getElementById('photo-dialog-title').textContent = ref.title;
+      document.getElementById('photo-dialog-img').src = credit.src;
+      document.getElementById('photo-dialog-img').alt = ref.title;
+      const place = attractionCatalog.find(place => place.key === day);
+      document.getElementById('photo-dialog-copy').textContent = `${ref.tip || place.tip} ${place.note}`;
+      document.getElementById('photo-dialog-credit').innerHTML = photoCreditMarkup(credit);
+      document.getElementById('photo-dialog-nav').hidden = refs.length < 2;
+      document.getElementById('photo-position').textContent = `${selected + 1} / ${refs.length}`;
+      if (!photoDialog.open) photoDialog.showModal();
+    }
+    document.getElementById('photo-prev').addEventListener('click', () => showPortrait(activePhoto.day, activePhoto.index - 1));
+    document.getElementById('photo-next').addEventListener('click', () => showPortrait(activePhoto.day, activePhoto.index + 1));
+    photoDialog.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || getPhotoReferences(activePhoto.day).length < 2) return;
+      event.preventDefault();
+      showPortrait(activePhoto.day, activePhoto.index + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    document.addEventListener('click', event => {
+      const attraction = event.target.closest('[data-attraction]');
+      if (attraction) {
+        const day = Number(attraction.dataset.albumDay);
+        selectedAttractions[day] = attraction.dataset.attraction;
+        attraction.closest('.photo-album').outerHTML = renderPhotoReference(day);
+        const selectedTab = document.getElementById(`attraction-${day}-${selectedAttractions[day]}`);
+        selectedTab.focus({preventScroll:true});
+        selectedTab.scrollIntoView({block:'nearest',inline:'nearest'});
+        return;
+      }
+      const pick = event.target.closest('[data-photo-pick]');
+      if (pick) {
+        const day = Number(pick.dataset.albumDay);
+        const index = Number(pick.dataset.photoPick);
+        const album = pick.closest('.photo-album');
+        album.outerHTML = renderPhotoReference(day, index);
+        document.querySelector(`[data-photo-album="${day}"] [data-photo-pick="${index}"]`)?.focus();
+        return;
+      }
+      const button = event.target.closest('[data-photo-day]');
+      if (button) showPortrait(button.dataset.photoDay, Number(button.dataset.photoIndex));
+    });
+    document.addEventListener('keydown', event => {
+      const tab = event.target.closest('[data-attraction]');
+      if (!tab || !['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+      event.preventDefault();
+      const tabs = [...tab.parentElement.querySelectorAll('[data-attraction]')];
+      const index = tabs.indexOf(tab);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[next].click();
+    });
+
+    const scenicGuides = {
+      1: [
+        ['出发合影', '登机前用航班屏上的开罗目的地作背景，拍一张两人出发照；让屏幕与人脸都入镜。登机牌若入镜，遮住姓名、条码和订单信息。'],
+        ['机窗夜景', '如果分到窗边，起飞后在允许使用设备时拍城市灯光：关闭闪光灯，镜头靠近但不贴住窗户，用手遮住舱内反光。夜景容易拖影，短视频通常比长曝光照片更稳。']
+      ],
+      2: [
+        ['阿布辛贝正面', '先在大神庙前的开放区域取四尊拉美西斯二世坐像全景，再让一人站在画面下方偏一侧，另一人后退拍摄，突出人与巨像的尺度。先试手机1倍，退不够再用0.5倍，人物别放边缘。'],
+        ['入内看什么', '沿中轴看柱厅里的奥西里斯式立像，再找拉美西斯二世战争场景浮雕，听导游讲卡迭石之战；最后看最深处的圣所。国庆班期并非著名的太阳照进圣所时段，不必为“阳光奇观”专门等候。'],
+        ['小神庙与夜景', '如果团队动线包含旁边的小神庙，留意奈菲尔塔利王后与法老巨像的尺度对比。声光秀允许拍摄时，以整座神庙为主体、压低曝光保住投影颜色；白天照片和夜景各留一张作对照。']
+      ],
+      3: [
+        ['菲莱神庙', '船接近岛屿时拍神庙与水面同框；上岸后在柱廊一端借连续石柱做引导线，人站在廊道内，画面会有纵深。游览时间短，优先入口塔门、柱廊和导游讲解的伊西斯浮雕。'],
+        ['老瀑布酒店下午茶', '若用餐区能看到尼罗河，可用茶杯或甜点作近景、帆船与河面作远景。两人互拍时坐在侧光位置，避免背对明亮河面导致脸部全黑；只在获准进入的用餐区取景。'],
+        ['方尖碑与努比亚村', '未完成方尖碑重点看它与岩床相连的部分、凿石痕迹和裂缝，理解为什么最终被放弃。村中若有彩色墙面，用简洁色块拍半身人像；拍居民或进入院落前先征得同意。']
+      ],
+      4: [
+        ['康翁波：找“双”', '这座神庙的看点是双神殿布局，跟着导游辨认鳄鱼神索贝克与鹰头神哈罗埃里斯，再观察成对的入口与轴线。拍柱厅时站在侧前方，让两排柱子形成层次。'],
+        ['埃德福：鹰神与塔门', '优先看高大的入口塔门、荷鲁斯鹰雕像与庭院。塔门用竖构图、人物放下方表现高度；雕像适合1倍或2倍取景，把鹰头与背后的门洞组合起来，不用广角贴脸拍。'],
+        ['游轮两岸', '航行时留意河边棕榈林、田地与沙漠的颜色分界；用2倍拍岸边生活，比一直拍大水面更有故事感。若傍晚仍在航行，可用帆船或棕榈树拍剪影，先点天空测光。']
+      ],
+      5: [
+        ['卡纳克：柱厅优先', '把拍照重点留给大柱厅：站在柱列之间斜向拍，带上一个人物表现巨柱尺度；再仰拍柱顶与残存彩绘。按导游动线看方尖碑和圣湖，先听讲再利用停留时间补拍。'],
+        ['尼罗河帆船', '把白帆、绳索或船沿放在前景，拍两人侧脸与河岸；比只拍天空更能体现“在尼罗河上”。若乘坐的是其他船型，就借船栏杆做引导线；傍晚暖光取决于实际乘船时段。'],
+        ['马车与西岸自费', '新版马车约30分钟，前往卢克索神庙仅外观，别按入内夜拍安排。若另报USD85/人的帝王谷＋女王神庙，先确认插入时段；墓室看彩绘、女王庙拍正面台阶，园中园票另计。']
+      ],
+      6: [
+        ['丹达拉：进门先抬头', '哈索尔神庙优先看大柱厅的哈索尔头像柱头、蓝色天花板和天文图像。先拍一张柱厅整体，再放大拍柱头与天花板细节；这几处比在门口一直拍人像更值得分配时间。'],
+        ['天花板怎么拍', '手机保持稳定、镜头尽量正对天花板，减少斜拍变形；用1倍保留细节，0.5倍只拍整体结构。人像可站在柱间明暗交界处，让柱子框住人物，拍摄时不要触碰彩绘。'],
+        ['红海酒店打卡', '入住后在酒店开放区域找海滩、栈桥或泳池边的简单背景。傍晚拍人像光线更柔和；赫尔格达海岸大致朝东，日落通常在陆地方向，不要预设能拍到太阳落入海里。']
+      ],
+      7: [
+        ['酒店海边晨景', '想拍朝海方向的晨光，可提前确认酒店海滩开放时间和当天日出时间。选栈桥延伸线、沙滩脚印或棕榈树作构图，一人走向海边、另一人侧后方拍，人物动作会更自然。'],
+        ['出海拍海水层次', '若报名浮潜，开船后拍深蓝海水与浅色礁区的分界，船头或栏杆可作前景；船停稳、工作人员允许时再拍人像。航线是否有沙洲或岛屿要看所订项目，不默认包含网红岛。'],
+        ['水下看什么、怎么拍', '浮潜跟随向导找珊瑚边缘的鱼群，从侧面平视取景比垂直俯拍更有层次。运动相机可录短视频再截帧；先保证漂浮与呼吸稳定，不追鱼、不站珊瑚，也不为拍摄脱掉救生衣。']
+      ],
+      8: [
+        ['城堡俯瞰开罗', '抵达萨拉丁城堡后，若团队经过开放观景区，可先拍城区与宣礼塔层层叠叠的全景，再用2倍挑出屋顶细节。远景是否清晰取决于能见度，不把看到远处金字塔作为必达目标。'],
+        ['阿里清真寺与两座博物馆', '新版明确列入穆罕默德·阿里清真寺、国家军事博物馆和国家警察博物馆，但城堡区总计约1小时。优先跟导游看主线：清真寺拍穹顶、吊灯、拱廊；两馆选导游指出的重点陈列，不预设能逐厅细看。'],
+        ['苏丹·哈桑外观', '本团外观约15分钟，重点拍高大的石砌立面、入口与宣礼塔。站在导游指定的安全停留区取景，用人物或街景体现建筑尺度，不为了拍全景横穿车流。'],
+        ['爱资哈尔公园晚宴', 'STUDIO MISR餐厅用餐时，若座位或开放露台能看到古城，可用拱廊或餐桌作前景拍双人照，远处穹顶与宣礼塔留在上半幅。晚霞、窗边座和远处金字塔均不作保证；公园不另安排深度游。']
+      ],
+      9: [
+        ['米娜宫：先拍再慢慢吃', '早餐时在获准使用的餐饮区找金字塔背景，人物靠画面一侧，用茶杯或早餐盘作近景；不要进住客区找同款机位。若改成同价下午茶，光线和当天顺序都不同，先听领队安排，不默认早晚各去一次。'],
+        ['大埃博：先定必看', '进馆先跟导游确认可看的展厅与停留时间。大厅拉美西斯二世巨像适合拍尺度对比；大阶梯与大型石雕适合看整体布局。若当天门票和动线包含图坦卡蒙展区，再优先安排，避免为找某一件展品脱离团队。'],
+        ['金字塔：三种画面', '依次争取一张单塔全景、一张人物与石块尺度对比、一张多座金字塔同框。后者需要团队实际经过合适观景点；有条件就用2倍压缩远近关系。人物放下方三分之一处，别用广角把塔尖和脸挤在边缘。'],
+        ['狮身人面像', '在游客开放步道上找侧面角度，把狮身人面像与背后的金字塔叠在一起。想拍“亲吻”错位照，让拍摄者移动、人物微调头部即可，不翻越围栏找机位。'],
+        ['悬空教堂与阿米尔清真寺', '新版明确这两个点。悬空教堂外拍白塔、十字架与庭院；内部先看木构和圣像，有礼拜时不摆拍。阿米尔清真寺看柱廊与拱门，入内按要求脱鞋和遮盖，不能拍摄时用眼睛看。'],
+        ['哈利利：拍照＋咖啡＋Tawla', '市集约1小时，别全花在砍价上。先征得店主同意，在灯具、铜器或拱门边各拍一张；咖啡点心时可拍两人的杯子与棋盘，向导游学Tawla。水烟虽在通知书中列为可体验，但有健康风险，可直接不参加。']
+      ],
+      10: [
+        ['亚历山大图书馆', '外部优先拍倾斜圆盘造型与刻有不同文字的石墙；若获准进入阅读大厅，从允许的参观位置拍层层展开的座席与屋顶光线。停留约35分钟，外观与大厅各留一张即可。'],
+        ['凯特贝城堡', '先从开放的海边步道拍城堡与地中海同框，再拍石门、窗洞与海面的组合。若团队进入可开放的高处，用窗洞框海；不要把登上某一段城墙当作保证项目。'],
+        ['庞培柱与圆形剧场', '庞培柱用竖幅拍全柱，把人放在底部体现高度；如果动线经过狮身人面像，可拍一张它与柱子的前后关系。圆形剧场安排为外观，只在实际可见的位置拍，不另外离队买票入内。']
+      ],
+      11: [
+        ['回程机窗收尾', '当天没有埃及景点游览。如果靠窗且天气允许，可拍云层与机翼作为旅行相册结尾；关闭闪光灯，避开窗户划痕和舱内反光。'],
+        ['两人的旅程相册', '落地后在公共到达区拍一张与出发照呼应的合影。回家各选一张“最喜欢的神庙、尼罗河、红海、金字塔”，加上日期和地点，做成这次旅程的四格回忆。']
+      ]
+    };
+
+    const egyptGeoJSON = {"type":"FeatureCollection","features":[{"type":"Feature","id":"EGY","properties":{"name":"Egypt"},"geometry":{"type":"Polygon","coordinates":[[[34.9226,29.50133],[34.64174,29.09942],[34.42655,28.34399],[34.15451,27.8233],[33.92136,27.6487],[33.58811,27.97136],[33.13676,28.41765],[32.42323,29.85108],[32.32046,29.76043],[32.73482,28.70523],[33.34876,27.69989],[34.10455,26.14227],[34.47387,25.59856],[34.79507,25.03375],[35.69241,23.92671],[35.49372,23.75237],[35.52598,23.10244],[36.69069,22.20485],[36.86623,22],[32.9,22],[29.02,22],[25,22],[25,25.6825],[25,29.238655],[24.70007,30.04419],[24.95762,30.6616],[24.80287,31.08929],[25.16482,31.56915],[26.49533,31.58568],[27.45762,31.32126],[28.45048,31.02577],[28.91353,30.87005],[29.68342,31.18686],[30.09503,31.4734],[30.97693,31.55586],[31.68796,31.4296],[31.96041,30.9336],[32.19247,31.26034],[32.99392,31.02407],[33.7734,30.96746],[34.26544,31.21936],[34.9226,29.50133]]]}}]};
+
+    const cities = {
+      cairo: { name: '开罗', ll: [30.0444, 31.2357] },
+      giza: { name: '吉萨', ll: [29.9773, 31.1325] },
+      aswan: { name: '阿斯旺', ll: [24.0889, 32.8998] },
+      abusimbel: { name: '阿布辛贝', ll: [22.3372, 31.6258] },
+      komombo: { name: '康翁波', ll: [24.4521, 32.9280] },
+      edfu: { name: '埃德福', ll: [24.9781, 32.8738] },
+      luxor: { name: '卢克索', ll: [25.6872, 32.6396] },
+      dendera: { name: '丹达拉', ll: [26.1419, 32.6703] },
+      redsea: { name: '红海', ll: [27.2579, 33.8116] },
+      alexandria: { name: '亚历山大', ll: [31.2001, 29.9187] }
+    };
+
+    const timeline = document.getElementById('timeline');
+    const dayDetail = document.getElementById('day-detail');
+    days.forEach((item, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'day-tab';
+      button.id = `day-tab-${item.day}`;
+      button.dataset.day = item.day;
+      button.setAttribute('role', 'tab');
+      button.setAttribute('aria-controls', 'day-detail');
+      button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+      button.innerHTML = `<strong>D${item.day}</strong><span>${item.date.split(' ')[0]}</span>`;
+      timeline.appendChild(button);
+    });
+
+    let map;
+    let countryBounds;
+    let activeLayers = [];
+    const routeSegments = [
+      { from: 'cairo', to: 'aswan', type: 'air' },
+      { from: 'aswan', to: 'abusimbel', type: 'road' },
+      { from: 'abusimbel', to: 'aswan', type: 'road' },
+      { from: 'aswan', to: 'komombo', type: 'water' },
+      { from: 'komombo', to: 'edfu', type: 'water' },
+      { from: 'edfu', to: 'luxor', type: 'water' },
+      { from: 'luxor', to: 'dendera', type: 'road' },
+      { from: 'dendera', to: 'redsea', type: 'road' },
+      { from: 'redsea', to: 'cairo', type: 'road' },
+      { from: 'cairo', to: 'alexandria', type: 'road' }
+    ];
+
+    function colorFor(type) {
+      return type === 'air' ? '#167d8b' : type === 'water' ? '#3d7ba2' : '#d9953f';
+    }
+
+    function initMap() {
+      if (!window.L) return;
+      const target = document.getElementById('map');
+      target.innerHTML = '';
+      map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([26.7, 31.8], 5);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 18,
+        opacity: .62
+      }).addTo(map);
+      map.createPane('countryPane');
+      map.getPane('countryPane').style.zIndex = 250;
+      const countryLayer = L.geoJSON(egyptGeoJSON, {
+        pane: 'countryPane',
+        interactive: false,
+        style: { color: '#315c58', weight: 2, opacity: .9, fillColor: '#f1d9ae', fillOpacity: .72 }
+      }).addTo(map);
+      countryBounds = countryLayer.getBounds();
+      routeSegments.forEach(segment => {
+        L.polyline([cities[segment.from].ll, cities[segment.to].ll], {
+          color: colorFor(segment.type),
+          weight: 3,
+          opacity: .33,
+          dashArray: segment.type === 'air' ? '8 8' : segment.type === 'water' ? '2 8' : null
+        }).addTo(map);
+      });
+      Object.entries(cities).forEach(([key, city]) => {
+        const icon = L.divIcon({ className: 'city-marker', html: '•', iconSize: [25,25] });
+        const directions = { cairo: 'top', giza: 'left', aswan: 'left', abusimbel: 'left', komombo: 'left', edfu: 'right', luxor: 'left', dendera: 'right', redsea: 'left', alexandria: 'left' };
+        const direction = directions[key] || 'right';
+        const offset = direction === 'left' ? [-8, 0] : direction === 'top' ? [0, -8] : [8, 0];
+        L.marker(city.ll, { icon }).addTo(map)
+          .bindPopup(`<strong>${city.name}</strong>`)
+          .bindTooltip(city.name, { permanent: true, direction, className: 'city-label', offset, opacity: 1 });
+      });
+      [
+        { ll: [31.7, 29.0], label: '地中海' },
+        { ll: [26.2, 35.0], label: '红海' },
+        { ll: [26.0, 27.3], label: '西部沙漠' },
+        { ll: [29.3, 33.7], label: '西奈半岛' }
+      ].forEach(item => {
+        L.marker(item.ll, { interactive: false, icon: L.divIcon({ className: 'region-label', html: item.label, iconSize: [90, 22] }) }).addTo(map);
+      });
+      fitCountry();
+    }
+
+    function fitCountry() {
+      if (!map || !countryBounds) return;
+      const padding = window.innerWidth <= 640 ? [18,18] : [24,24];
+      map.fitBounds(countryBounds, { padding, maxZoom: 5 });
+    }
+
+    function segmentType(a, b) {
+      const found = routeSegments.find(s => (s.from === a && s.to === b) || (s.from === b && s.to === a));
+      return found ? found.type : 'road';
+    }
+
+    const siteNoteOpen = new Map();
+    function renderSiteNotes(item) {
+      const entries = siteNotes[item.day] || [];
+      const details = entries.map(([name,status,focus,notes],index) => {
+        const key = `${item.day}-${index}`;
+        return `<details class="site-note" data-site-note="${key}" ${(siteNoteOpen.get(key) ?? index === 0) ? 'open' : ''}><summary>${escapePhotoText(name)}<em>${escapePhotoText(status)}</em><small>${escapePhotoText(focus)}</small></summary><ul>${notes.map(([label,copy])=>`<li><strong>${escapePhotoText(label)}：</strong>${escapePhotoText(copy)}</li>`).join('')}</ul></details>`;
+      }).join('');
+      const allOpen = entries.every((_,index) => siteNoteOpen.get(`${item.day}-${index}`) ?? index === 0);
+      return `<section class="day-guide caution site-cautions" aria-label="D${item.day}逐站注意事项" style="padding:13px 14px"><div class="site-caution-head"><b>逐站注意事项 · ${entries.length}项</b><button type="button" data-site-toggle aria-controls="site-details-${item.day}">${allOpen ? '全部收起' : '全部展开'}</button></div><p class="day-guide-note">行程时长与报价据出团通知；以下为实用建议，开放、拍摄与收费规则以现场确认为准。点景点名展开。</p><div id="site-details-${item.day}">${details}</div><p class="site-carry"><strong>当天随身：</strong>${escapePhotoText(item.carry)}</p></section>`;
+    }
+    dayDetail.addEventListener('click', event => {
+      const button = event.target.closest('[data-site-toggle]');
+      if (!button) return;
+      const details = [...button.closest('.site-cautions').querySelectorAll('.site-note')];
+      const open = details.some(detail => !detail.open);
+      details.forEach(detail => { detail.open = open; siteNoteOpen.set(detail.dataset.siteNote,open); });
+      button.textContent = open ? '全部收起' : '全部展开';
+    });
+    dayDetail.addEventListener('toggle', event => {
+      const detail = event.target;
+      if (!detail.matches('.site-note') || !dayDetail.contains(detail)) return;
+      siteNoteOpen.set(detail.dataset.siteNote,detail.open);
+      const group = detail.closest('.site-cautions');
+      group.querySelector('[data-site-toggle]').textContent = [...group.querySelectorAll('.site-note')].every(node => node.open) ? '全部收起' : '全部展开';
+    }, true);
+
+    function selectDay(dayNumber, scrollTab = false) {
+      const item = days.find(d => d.day === dayNumber);
+      const selectedTab = document.getElementById(`day-tab-${dayNumber}`);
+      document.querySelectorAll('.day-tab').forEach(button => button.setAttribute('aria-selected', Number(button.dataset.day) === dayNumber ? 'true' : 'false'));
+      if (scrollTab) selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const levelClass = item.level === '高' ? 'hard' : item.level === '低' ? '' : 'hot';
+      dayDetail.setAttribute('aria-labelledby', selectedTab.id);
+      dayDetail.innerHTML = `<div class="day-detail-head"><div class="day-detail-index">D${item.day}</div><div><span class="day-date">${item.date}</span><strong class="day-title">${item.title}</strong><span class="day-copy">${item.detail}</span><span class="tags">${item.tags.map((tag, i) => `<span class="tag ${i === 0 ? levelClass : ''}">${tag}</span>`).join('')}</span></div></div><div class="day-expanded"><span class="day-fact climate"><b>预计温度</b><span>${item.temp}</span></span><span class="day-fact climate"><b>当日衣着</b><span>${item.wear}</span></span><span class="day-fact"><b>时间与游览</b><span>${item.schedule}</span></span><span class="day-fact"><b>团费已含</b><span>${item.included}</span></span><span class="day-fact"><b>当天餐食</b><span>${item.meal}</span></span><span class="day-fact"><b>当晚住宿 / 交通</b><span>${item.stay}</span></span><div class="day-guides"><div class="day-guide play"><b>拍照 · 打卡 · 必看细节</b>${renderPhotoReference(item.day)}<ul>${scenicGuides[item.day].map(([title, copy]) => `<li><strong>${title}：</strong>${copy}</li>`).join('')}</ul><p class="day-guide-note">配图仅供构图参考，不保证同季节、光线或机位；按团队动线取景。平台入口可能需要登录。</p></div>${renderSiteNotes(item)}</div></div>`;
+      if (!map) return;
+      activeLayers.forEach(layer => map.removeLayer(layer));
+      activeLayers = [];
+      const uniquePoints = [...new Set(item.points)];
+      for (let i = 0; i < item.points.length - 1; i++) {
+        const a = item.points[i];
+        const b = item.points[i + 1];
+        if (a === b) continue;
+        const type = segmentType(a, b);
+        const line = L.polyline([cities[a].ll, cities[b].ll], {
+          color: colorFor(type),
+          weight: 6,
+          opacity: .95,
+          dashArray: type === 'air' ? '10 9' : type === 'water' ? '2 9' : null
+        }).addTo(map);
+        activeLayers.push(line);
+      }
+      const bounds = L.latLngBounds(uniquePoints.map(key => cities[key].ll));
+      if ((dayNumber === 1 || dayNumber === 11) && countryBounds) fitCountry();
+      else if (uniquePoints.length === 1) map.setView(cities[uniquePoints[0]].ll, uniquePoints[0] === 'cairo' ? 7 : 8);
+      else map.fitBounds(bounds, { padding: [60,60], maxZoom: 7 });
+    }
+
+    let mapResizeTimer;
+    window.addEventListener('resize', () => {
+      if (!map) return;
+      window.clearTimeout(mapResizeTimer);
+      mapResizeTimer = window.setTimeout(() => {
+        map.invalidateSize();
+        const selected = Number(document.querySelector('.day-tab[aria-selected="true"]')?.dataset.day || 1);
+        selectDay(selected);
+      }, 120);
+    });
+
+    timeline.addEventListener('click', event => {
+      const button = event.target.closest('.day-tab');
+      if (button) selectDay(Number(button.dataset.day), true);
+    });
+
+    timeline.addEventListener('keydown', event => {
+      const tabs = [...timeline.querySelectorAll('.day-tab')];
+      const current = tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+      let next;
+      if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      selectDay(Number(tabs[next].dataset.day), true);
+      tabs[next].focus();
+    });
+
+    const toolTabs = [...document.querySelectorAll('.tool-tab')];
+    function activateToolTab(tab, moveFocus = false) {
+      toolTabs.forEach(button => {
+        const selected = button === tab;
+        button.setAttribute('aria-selected', selected ? 'true' : 'false');
+        document.getElementById(button.getAttribute('aria-controls')).hidden = !selected;
+      });
+      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      if (moveFocus) tab.focus();
+    }
+
+    toolTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateToolTab(tab));
+      tab.addEventListener('keydown', event => {
+        let nextIndex;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % toolTabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + toolTabs.length) % toolTabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = toolTabs.length - 1;
+        else return;
+        event.preventDefault();
+        activateToolTab(toolTabs[nextIndex], true);
+      });
+    });
+
+    const linkedTool = toolTabs.find(tab => `#${tab.getAttribute('aria-controls')}` === window.location.hash);
+    if (linkedTool) activateToolTab(linkedTool);
+
+    function updateBudget() {
+      const rate = Number(document.getElementById('exchange-rate').value) || 7.25;
+      const usd = [...document.querySelectorAll('#extras input:checked')].reduce((sum, input) => sum + Number(input.dataset.usd), 0);
+      const smallFeesUsd = 8;
+      const extrasCny = Math.round((usd + smallFeesUsd) * rate);
+      const total = 40398 + extrasCny;
+      document.getElementById('budget-total').textContent = `¥${total.toLocaleString('zh-CN')}`;
+      document.getElementById('budget-breakdown').textContent = `原团费估算 ¥40,398；另加选项USD ${usd}＋小额费用USD ${smallFeesUsd}，合计折人民币约 ¥${extrasCny.toLocaleString('zh-CN')}`;
+    }
+    document.getElementById('extras').addEventListener('change', updateBudget);
+    document.getElementById('exchange-rate').addEventListener('input', updateBudget);
+
+    const checks = [...document.querySelectorAll('#checklist input')];
+    try {
+      const saved = JSON.parse(localStorage.getItem('egypt-checklist-2026') || '[]');
+      checks.forEach((input, i) => input.checked = Boolean(saved[i]));
+      if (localStorage.getItem('egypt-notice-checklist-version') !== '2026-09-22') {
+        [1,8,13].forEach(i => checks[i].checked = false);
+        localStorage.setItem('egypt-notice-checklist-version', '2026-09-22');
+      }
+    } catch (_) {}
+
+    function updateChecklist() {
+      const count = checks.filter(input => input.checked).length;
+      const percent = Math.round(count / checks.length * 100);
+      document.getElementById('check-progress-text').textContent = `${count} / ${checks.length}`;
+      document.getElementById('check-progress-bar').style.width = `${percent}%`;
+      const progress = document.querySelector('.check-progress');
+      progress.setAttribute('aria-valuenow', String(count));
+      try { localStorage.setItem('egypt-checklist-2026', JSON.stringify(checks.map(input => input.checked))); } catch (_) {}
+    }
+    checks.forEach(input => input.addEventListener('change', updateChecklist));
+    updateChecklist();
+
+    initMap();
+    selectDay(1);
+    updateBudget();
+  </script>
+</body>
+</html>
