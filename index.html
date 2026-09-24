@@ -274,7 +274,25 @@
     .leaflet-container { font-family: inherit; }
     .leaflet-popup-content-wrapper { border-radius: 14px; box-shadow: 0 14px 30px rgba(0,0,0,.15); }
     .leaflet-popup-content { margin: 12px 14px; font-size: 12px; }
-    .city-marker { display: grid; place-items: center; width: 25px !important; height: 25px !important; margin: -12px 0 0 -12px !important; border: 3px solid #fff; border-radius: 50%; color: #fff; background: var(--night); box-shadow: 0 4px 12px rgba(0,0,0,.24); font-size: 9px; font-weight: 900; }
+    .city-marker { display: grid; place-items: center; border: 2px solid #fff; border-radius: 50%; color: #fff; background: var(--night); box-shadow: 0 4px 12px rgba(0,0,0,.24); font-size: 12px; font-weight: 900; }
+    .map-index { padding: 10px 14px; border-top: 1px solid var(--line); }
+    .map-index p { margin: 0 0 6px; color: var(--muted); font-size: 11px; }
+    .map-stops { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .map-stops span { font-size: 12px; white-space: nowrap; }
+    .map-stops b { color: var(--nile); margin-right: 4px; }
+    .day-content-tabs { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 3px; margin-top: 16px; padding: 4px; border-radius: 12px; background: #ebe9df; }
+    .day-content-tabs button { min-height: 44px; padding: 8px 2px; border: 0; border-radius: 9px; background: transparent; font-size: 12px; cursor: pointer; }
+    .day-content-tabs button[aria-selected="true"] { background: var(--night); color: white; }
+    .day-content-panel { margin-top: 14px; min-width: 0; }
+    .day-content-panel[hidden] { display: none; }
+    .day-content-panel .day-expanded { margin: 0; padding: 0; border: 0; }
+    .day-content-panel .day-fact { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .day-content-panel .day-fact.climate { padding: 12px; }
+    .day-content-panel .day-guide { margin: 0; }
+    .scenic-tip { border-top: 1px solid #167d8b30; padding: 10px 0; font-size: 13px; }
+    .scenic-tip summary { cursor: pointer; color: #17616a; font-weight: 650; min-height: 28px; }
+    .scenic-tip p { margin: 8px 0 0; }
+    button:focus-visible, summary:focus-visible { outline: 2px solid var(--nile); outline-offset: 3px; }
     .city-label { border: 0 !important; color: #173b3c !important; background: rgba(255,253,248,.90) !important; box-shadow: 0 3px 10px rgba(20,49,48,.10) !important; font-size: 10px !important; font-weight: 850 !important; }
     .city-label::before { display: none !important; }
     .region-label { border: 0 !important; color: rgba(20,66,70,.58) !important; background: transparent !important; box-shadow: none !important; font-family: Georgia, "Noto Serif SC", serif !important; font-size: 13px !important; font-style: italic; letter-spacing: .08em; }
@@ -316,12 +334,45 @@
       .day-expanded { grid-template-columns: 1fr; }
       .day-guides { grid-template-columns: 1fr; }
       .footer-inner { display: grid; }
-      #map { height: 470px; }
+      #map { height: 300px; }
       .map-head { display: grid; }
       .tool-panel { padding: 21px 18px; }
       .tool-tabs { margin-right: -13px; padding-right: 19px; border-right: 0; border-radius: 14px 0 0 14px; }
       .tool-tab { min-height: 44px; }
       .weather-callout { grid-template-columns: 1fr; }
+      .route-section { padding: 18px 0; }
+      .route-layout { gap: 18px; }
+      .map-panel { border-radius: 18px; box-shadow: none; }
+      .map-head { padding: 12px 14px; gap: 7px; }
+      .map-index { padding: 9px 12px; }
+      .map-stops { gap: 3px 10px; }
+      .map-stops span { font-size: 11px; }
+      .timeline { position: sticky; top: 0; z-index: 500; background: #f0e4cef5; backdrop-filter: blur(12px); border-radius: 12px; }
+      .day-tab { min-width: 58px; min-height: 48px; padding: 6px 8px; }
+      .day-detail { padding: 14px; border-radius: 16px; margin-top: 8px; }
+      .day-detail-head { grid-template-columns: 36px minmax(0,1fr); gap: 10px; }
+      .day-detail-index { width: 36px; height: 36px; border-radius: 10px; }
+      .day-content-tabs { position: sticky; top: 66px; z-index: 490; box-shadow: 0 3px 8px #fdfaf255; }
+      .day-title { font-size: 18px; }
+      .day-copy, .day-fact span, .day-guide .site-note ul, .scenic-tip { font-size: 14px; line-height: 1.75; }
+      .day-date, .day-fact b, .day-guide b { font-size: 12px; }
+      .day-guide { padding: 11px; }
+      .day-expanded { gap: 8px; }
+      .site-note summary { padding: 13px 0; font-size: 14px; }
+      .site-note summary small, .site-carry { font-size: 12px; }
+      .site-caution-head button, .attraction-tabs button { min-height: 44px; }
+      .attraction-tabs button { font-size: 13px; }
+      .photo-reference { grid-template-columns: minmax(0,1fr); padding: 8px; }
+      .photo-open img { height: 250px; }
+      .photo-reference figcaption { font-size: 13px; }
+      .photo-picks { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+      .photo-picks button { flex-shrink: 0; }
+      .tools-section { padding: 26px 0; }
+      .tool-tabs { margin-top: 16px; }
+      .tool-panel { padding: 15px 12px; border-radius: 16px; }
+      .transit-strip { padding: 12px 14px; gap: 12px; }
+      .transit-strip span { display: block; font-size: 12px; }
+      .logistics-table { font-size: 11px; overflow-wrap: anywhere; }
     }
   </style>
 </head>
@@ -382,6 +433,7 @@
                 <div class="legend"><span><i class="air"></i>内飞</span><span><i class="road"></i>大巴</span><span><i class="water"></i>游轮</span></div>
               </div>
               <div id="map" aria-label="埃及旅行路线交互地图"><div class="map-fallback">地图载入中；下方逐日行程不受网络影响。</div></div>
+              <div class="map-index"><p>编号按首次到访排列（不是天数），往返沿用同号</p><div class="map-stops" id="map-stops"></div></div>
             </div>
             <div class="itinerary-panel">
               <div class="timeline" id="timeline" role="tablist" aria-label="逐日行程"></div>
@@ -753,6 +805,9 @@
 
     const timeline = document.getElementById('timeline');
     const dayDetail = document.getElementById('day-detail');
+    const cityOrder = ['cairo','aswan','abusimbel','komombo','edfu','luxor','dendera','redsea','giza','alexandria'];
+    cityOrder.forEach((key,index) => { cities[key].number = index + 1; });
+    document.getElementById('map-stops').innerHTML = cityOrder.map(key => `<span><b>${cities[key].number}</b>${cities[key].name}</span>`).join('');
     days.forEach((item, index) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -813,13 +868,13 @@
         }).addTo(map);
       });
       Object.entries(cities).forEach(([key, city]) => {
-        const icon = L.divIcon({ className: 'city-marker', html: '•', iconSize: [25,25] });
+        const icon = L.divIcon({ className: 'city-marker', html: String(city.number), iconSize: [28,28], iconAnchor: [14,14] });
         const directions = { cairo: 'top', giza: 'left', aswan: 'left', abusimbel: 'left', komombo: 'left', edfu: 'right', luxor: 'left', dendera: 'right', redsea: 'left', alexandria: 'left' };
         const direction = directions[key] || 'right';
         const offset = direction === 'left' ? [-8, 0] : direction === 'top' ? [0, -8] : [8, 0];
-        L.marker(city.ll, { icon }).addTo(map)
-          .bindPopup(`<strong>${city.name}</strong>`)
-          .bindTooltip(city.name, { permanent: true, direction, className: 'city-label', offset, opacity: 1 });
+        L.marker(city.ll, { icon, title: `${city.number} · ${city.name}`, alt: `${city.number} · ${city.name}` }).addTo(map)
+          .bindPopup(`<strong>${city.number} · ${city.name}</strong>`)
+          .bindTooltip(`${city.number} ${city.name}`, { permanent: true, direction, className: 'city-label', offset, opacity: 1 });
       });
       [
         { ll: [31.7, 29.0], label: '地中海' },
@@ -848,9 +903,9 @@
       const entries = siteNotes[item.day] || [];
       const details = entries.map(([name,status,focus,notes],index) => {
         const key = `${item.day}-${index}`;
-        return `<details class="site-note" data-site-note="${key}" ${(siteNoteOpen.get(key) ?? index === 0) ? 'open' : ''}><summary>${escapePhotoText(name)}<em>${escapePhotoText(status)}</em><small>${escapePhotoText(focus)}</small></summary><ul>${notes.map(([label,copy])=>`<li><strong>${escapePhotoText(label)}：</strong>${escapePhotoText(copy)}</li>`).join('')}</ul></details>`;
+        return `<details class="site-note" data-site-note="${key}" ${siteNoteOpen.get(key) ? 'open' : ''}><summary>${escapePhotoText(name)}<em>${escapePhotoText(status)}</em><small>${escapePhotoText(focus)}</small></summary><ul>${notes.map(([label,copy])=>`<li><strong>${escapePhotoText(label)}：</strong>${escapePhotoText(copy)}</li>`).join('')}</ul></details>`;
       }).join('');
-      const allOpen = entries.every((_,index) => siteNoteOpen.get(`${item.day}-${index}`) ?? index === 0);
+      const allOpen = entries.every((_,index) => siteNoteOpen.get(`${item.day}-${index}`));
       return `<section class="day-guide caution site-cautions" aria-label="D${item.day}逐站注意事项" style="padding:13px 14px"><div class="site-caution-head"><b>逐站注意事项 · ${entries.length}项</b><button type="button" data-site-toggle aria-controls="site-details-${item.day}">${allOpen ? '全部收起' : '全部展开'}</button></div><p class="day-guide-note">行程时长与报价据出团通知；以下为实用建议，开放、拍摄与收费规则以现场确认为准。点景点名展开。</p><div id="site-details-${item.day}">${details}</div><p class="site-carry"><strong>当天随身：</strong>${escapePhotoText(item.carry)}</p></section>`;
     }
     dayDetail.addEventListener('click', event => {
@@ -869,6 +924,44 @@
       group.querySelector('[data-site-toggle]').textContent = [...group.querySelectorAll('.site-note')].every(node => node.open) ? '全部收起' : '全部展开';
     }, true);
 
+    const daySections = [['overview','行程安排'],['photos','拍照打卡'],['notes','景点须知'],['weather','天气穿衣']];
+    const daySectionSelection = new Map();
+    function selectDaySection(key, focus = false) {
+      const currentDay = Number(dayDetail.dataset.day);
+      daySectionSelection.set(currentDay, key);
+      dayDetail.querySelectorAll('[data-day-section]').forEach(button => {
+        const active = button.dataset.daySection === key;
+        button.setAttribute('aria-selected', String(active));
+        button.tabIndex = active ? 0 : -1;
+        document.getElementById(button.getAttribute('aria-controls')).hidden = !active;
+        if (active && focus) button.focus();
+      });
+    }
+    dayDetail.addEventListener('click', event => {
+      const button = event.target.closest('[data-day-section]');
+      if (button) selectDaySection(button.dataset.daySection);
+    });
+    dayDetail.addEventListener('keydown', event => {
+      const button = event.target.closest('[data-day-section]');
+      if (!button) return;
+      const index = daySections.findIndex(([key]) => key === button.dataset.daySection);
+      const next = event.key === 'ArrowRight' ? (index + 1) % 4 : event.key === 'ArrowLeft' ? (index + 3) % 4 : event.key === 'Home' ? 0 : event.key === 'End' ? 3 : null;
+      if (next === null) return;
+      event.preventDefault();
+      selectDaySection(daySections[next][0], true);
+    });
+    function renderDaySections(item) {
+      const fact = (label,copy,climate = false) => `<div class="day-fact${climate ? ' climate' : ''}"><b>${label}</b><span>${escapePhotoText(copy || '以出团通知为准')}</span></div>`;
+      const content = {
+        overview: `<div class="day-expanded">${fact('时间与游览',item.schedule)}${fact('团费已含',item.included)}${fact('当天餐食',item.meal)}${fact('当晚住宿 / 交通',item.stay)}</div>`,
+        photos: `<div class="day-guide play">${renderPhotoReference(item.day)}${(scenicGuides[item.day] || []).map(([title,copy]) => `<details class="scenic-tip"><summary>${escapePhotoText(title)}</summary><p>${escapePhotoText(copy)}</p></details>`).join('')}<p class="day-guide-note">配图仅供构图参考；按团队动线取景，原帖可能需要登录。</p></div>`,
+        notes: renderSiteNotes(item),
+        weather: `<div class="day-expanded">${fact('预计温度',item.temp,true)}${fact('当日衣着',item.wear,true)}${fact('当天随身',item.carry)}</div><p class="day-guide-note">天气更新于9月21日，非实时温度；出发前请再核对。</p>`
+      };
+      const selected = daySectionSelection.get(item.day) || 'overview';
+      return `<div class="day-content-tabs" role="tablist" aria-label="D${item.day}攻略分类">${daySections.map(([key,label]) => `<button type="button" role="tab" id="day-${item.day}-${key}-tab" data-day-section="${key}" aria-controls="day-${item.day}-${key}-panel" aria-selected="${selected === key}" tabindex="${selected === key ? 0 : -1}">${label}</button>`).join('')}</div>${daySections.map(([key]) => `<div class="day-content-panel" role="tabpanel" id="day-${item.day}-${key}-panel" aria-labelledby="day-${item.day}-${key}-tab" ${selected === key ? '' : 'hidden'}>${content[key]}</div>`).join('')}`;
+    }
+
     function selectDay(dayNumber, scrollTab = false) {
       const item = days.find(d => d.day === dayNumber);
       const selectedTab = document.getElementById(`day-tab-${dayNumber}`);
@@ -876,7 +969,8 @@
       if (scrollTab) selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       const levelClass = item.level === '高' ? 'hard' : item.level === '低' ? '' : 'hot';
       dayDetail.setAttribute('aria-labelledby', selectedTab.id);
-      dayDetail.innerHTML = `<div class="day-detail-head"><div class="day-detail-index">D${item.day}</div><div><span class="day-date">${item.date}</span><strong class="day-title">${item.title}</strong><span class="day-copy">${item.detail}</span><span class="tags">${item.tags.map((tag, i) => `<span class="tag ${i === 0 ? levelClass : ''}">${tag}</span>`).join('')}</span></div></div><div class="day-expanded"><span class="day-fact climate"><b>预计温度</b><span>${item.temp}</span></span><span class="day-fact climate"><b>当日衣着</b><span>${item.wear}</span></span><span class="day-fact"><b>时间与游览</b><span>${item.schedule}</span></span><span class="day-fact"><b>团费已含</b><span>${item.included}</span></span><span class="day-fact"><b>当天餐食</b><span>${item.meal}</span></span><span class="day-fact"><b>当晚住宿 / 交通</b><span>${item.stay}</span></span><div class="day-guides"><div class="day-guide play"><b>拍照 · 打卡 · 必看细节</b>${renderPhotoReference(item.day)}<ul>${scenicGuides[item.day].map(([title, copy]) => `<li><strong>${title}：</strong>${copy}</li>`).join('')}</ul><p class="day-guide-note">配图仅供构图参考，不保证同季节、光线或机位；按团队动线取景。平台入口可能需要登录。</p></div>${renderSiteNotes(item)}</div></div>`;
+      dayDetail.dataset.day = String(item.day);
+      dayDetail.innerHTML = `<div class="day-detail-head"><div class="day-detail-index">D${item.day}</div><div><span class="day-date">${item.date}</span><strong class="day-title">${item.title}</strong><span class="day-copy">${item.detail}</span><span class="tags">${item.tags.map((tag, i) => `<span class="tag ${i === 0 ? levelClass : ''}">${tag}</span>`).join('')}</span></div></div>${renderDaySections(item)}`;
       if (!map) return;
       activeLayers.forEach(layer => map.removeLayer(layer));
       activeLayers = [];
