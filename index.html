@@ -275,11 +275,16 @@
     .leaflet-popup-content-wrapper { border-radius: 14px; box-shadow: 0 14px 30px rgba(0,0,0,.15); }
     .leaflet-popup-content { margin: 12px 14px; font-size: 12px; }
     .city-marker { display: grid; place-items: center; border: 2px solid #fff; border-radius: 50%; color: #fff; background: var(--night); box-shadow: 0 4px 12px rgba(0,0,0,.24); font-size: 12px; font-weight: 900; }
-    .map-index { padding: 10px 14px; border-top: 1px solid var(--line); }
-    .map-index p { margin: 0 0 6px; color: var(--muted); font-size: 11px; }
-    .map-stops { display: flex; flex-wrap: wrap; gap: 4px 12px; }
-    .map-stops span { font-size: 12px; white-space: nowrap; }
-    .map-stops b { color: var(--nile); margin-right: 4px; }
+    .photo-batch-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .photo-batch-bar button { min-height: 44px; padding: 8px 14px; border: 0; border-radius: 9px; color: white; background: var(--nile); cursor: pointer; font-size: 13px; }
+    .photo-batch-bar span { flex: 1 1 150px; font-size: 11px; }
+    .check-group { grid-column: 1 / -1; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; background: #ffffff66; }
+    .check-group summary { cursor: pointer; padding: 12px 0; color: var(--night); font-size: 14px; font-weight: 700; }
+    .check-group-count { float: right; font-size: 12px; color: var(--nile); }
+    .check-group-items { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; padding: 0 0 12px; }
+    .check-item { min-height: 44px; padding: 8px 0; cursor: pointer; }
+    .check-item input { width: 18px; height: 18px; }
+    .check-item:has(input:checked) span { color: #7d8882; text-decoration: line-through; }
     .day-content-tabs { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 3px; margin-top: 16px; padding: 4px; border-radius: 12px; background: #ebe9df; }
     .day-content-tabs button { min-height: 44px; padding: 8px 2px; border: 0; border-radius: 9px; background: transparent; font-size: 12px; cursor: pointer; }
     .day-content-tabs button[aria-selected="true"] { background: var(--night); color: white; }
@@ -344,9 +349,8 @@
       .route-layout { gap: 18px; }
       .map-panel { border-radius: 18px; box-shadow: none; }
       .map-head { padding: 12px 14px; gap: 7px; }
-      .map-index { padding: 9px 12px; }
-      .map-stops { gap: 3px 10px; }
-      .map-stops span { font-size: 11px; }
+      .check-group-items { grid-template-columns: 1fr; }
+      .check-item { font-size: 14px; line-height: 1.7; }
       .timeline { position: sticky; top: 0; z-index: 500; background: #f0e4cef5; backdrop-filter: blur(12px); border-radius: 12px; }
       .day-tab { min-width: 58px; min-height: 48px; padding: 6px 8px; }
       .day-detail { padding: 14px; border-radius: 16px; margin-top: 8px; }
@@ -433,7 +437,6 @@
                 <div class="legend"><span><i class="air"></i>内飞</span><span><i class="road"></i>大巴</span><span><i class="water"></i>游轮</span></div>
               </div>
               <div id="map" aria-label="埃及旅行路线交互地图"><div class="map-fallback">地图载入中；下方逐日行程不受网络影响。</div></div>
-              <div class="map-index"><p>编号按首次到访排列（不是天数），往返沿用同号</p><div class="map-stops" id="map-stops"></div></div>
             </div>
             <div class="itinerary-panel">
               <div class="timeline" id="timeline" role="tablist" aria-label="逐日行程"></div>
@@ -453,7 +456,7 @@
             <button class="tool-tab" id="logistics-tab" type="button" role="tab" aria-controls="logistics" aria-selected="false">航班住宿</button>
             <button class="tool-tab" id="weather-tab" type="button" role="tab" aria-controls="weather" aria-selected="true">天气穿衣</button>
             <button class="tool-tab" id="budget-tab" type="button" role="tab" aria-controls="budget" aria-selected="false">费用预算</button>
-            <button class="tool-tab" id="prepare-tab" type="button" role="tab" aria-controls="prepare" aria-selected="false">行李清单</button>
+            <button class="tool-tab" id="prepare-tab" type="button" role="tab" aria-controls="prepare" aria-selected="false">出行清单</button>
             <button class="tool-tab" id="return-tab" type="button" role="tab" aria-controls="return" aria-selected="false">返程处理</button>
           </div>
 
@@ -511,30 +514,13 @@
           <div id="prepare" class="tool-panel" role="tabpanel" aria-labelledby="prepare-tab" hidden>
             <div class="tool-panel-head">
               <h3>收拾行李，完成出行检查</h3>
-              <p class="tool-panel-lead">勾选状态会保存在当前浏览器，下次打开可以继续。</p>
+              <p class="tool-panel-lead">按类别逐项核对，不适用项可标记为已处理。勾选只保存在当前设备、当前浏览器；本地文件与在线网页不共用进度。</p>
             </div>
             <div class="prep-grid">
               <div class="check-panel">
-                <div class="panel-head"><h3>出行清单</h3><span class="progress-text" id="check-progress-text">0 / 16</span></div>
-                <div class="check-progress" role="progressbar" aria-label="行李准备进度" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0"><span id="check-progress-bar"></span></div>
-                <div class="checklist" id="checklist">
-                  <label class="check-item"><input type="checkbox"><span>护照有效期超过2027年4月6日，至少3页空白页</span></label>
-                  <label class="check-item"><input type="checkbox"><span>确认护照由谁保管，保存领队电话与出团通知</span></label>
-                  <label class="check-item"><input type="checkbox"><span>境外医疗、紧急运送及取消保险</span></label>
-                  <label class="check-item"><input type="checkbox"><span>SPF50+、帽子、墨镜、防晒长袖</span></label>
-                  <label class="check-item"><input type="checkbox"><span>薄外套与女士清真寺用薄围巾</span></label>
-                  <label class="check-item"><input type="checkbox"><span>泳衣、水母衣和涉水鞋</span></label>
-                  <label class="check-item"><input type="checkbox"><span>补液盐、肠胃药、止泻药和晕车药</span></label>
-                  <label class="check-item"><input type="checkbox"><span>颈枕、眼罩和耳塞</span></label>
-                  <label class="check-item"><input type="checkbox"><span>牙刷牙膏、拖鞋等完整洗漱用品</span></label>
-                  <label class="check-item"><input type="checkbox"><span>欧标两圆脚转换插头</span></label>
-                  <label class="check-item"><input type="checkbox"><span>有清晰3C标识的充电宝</span></label>
-                  <label class="check-item"><input type="checkbox"><span>少量干净的USD 1、5、10面额现金</span></label>
-                  <label class="check-item"><input type="checkbox"><span>流量卡、eSIM或国际漫游</span></label>
-                  <label class="check-item"><input type="checkbox"><span>通知书托运1件23kg，内飞与手提额度已按出票核对</span></label>
-                  <label class="check-item"><input type="checkbox"><span>厦门往返广州交通已留足缓冲</span></label>
-                  <label class="check-item"><input type="checkbox"><span>没有携带无人机及敏感拍摄设备</span></label>
-                </div>
+                <div class="panel-head"><h3>出行清单</h3><span class="progress-text" id="check-progress-text" aria-live="polite"></span></div>
+                <div class="check-progress" role="progressbar" aria-label="行李准备进度" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0"><span id="check-progress-bar"></span></div>
+                <div class="checklist" id="checklist"></div>
               </div>
             </div>
           </div>
@@ -630,6 +616,8 @@
     Object.assign(portraitCredits, attractionPhotoData.credits);
     const attractionAlbums = {};
     const selectedAttractions = {};
+    const selectedPhotoIndexes = {};
+    const photoBatchCounts = {};
     attractionCatalog.forEach(place => {
       const base = place.baseDay ? photoReferences[place.baseDay] : [];
       attractionAlbums[place.key] = [...(Array.isArray(base) ? base : [base]), ...(attractionPhotoData.albums[place.key] || [])].filter(Boolean);
@@ -646,7 +634,7 @@
       if (!refs || typeof portraitCredits === 'undefined') return [];
       return (Array.isArray(refs) ? refs : [refs]).filter(ref => portraitCredits[ref.id]);
     }
-    function renderPhotoReference(day, index = 0) {
+    function renderPhotoReference(day, index) {
       const dayOrder = {3:['dam','obelisk','nile','nubian','old-cataract','philae'],5:['karnak','nile','market','luxor-street','luxor-temple','valley','hatshepsut']};
       const places = attractionCatalog.filter(place => place.days.includes(Number(day)));
       if (dayOrder[day]) places.sort((a,b) => dayOrder[day].indexOf(a.key) - dayOrder[day].indexOf(b.key));
@@ -655,12 +643,15 @@
       selectedAttractions[day] = place.key;
       const refs = getPhotoReferences(place.key);
       if (!refs.length) return '';
-      const selected = Math.min(Math.max(index, 0), refs.length - 1);
+      const selectionKey = `${day}:${place.key}`;
+      const selected = Math.min(Math.max(index ?? selectedPhotoIndexes[selectionKey] ?? 0, 0), refs.length - 1);
+      selectedPhotoIndexes[selectionKey] = selected;
       const ref = refs[selected];
       const credit = portraitCredits[ref.id];
       const picks = `<div class="photo-picks" role="group" aria-label="${escapePhotoText(place.label)}参考照片">${refs.map((photo, i) => `<button type="button" data-photo-pick="${i}" data-album-day="${day}" aria-pressed="${i === selected}" aria-label="查看第${i + 1}张：${escapePhotoText(photo.title)}"><img src="${escapePhotoText(portraitCredits[photo.id].src)}" width="45" height="56" alt="" loading="lazy"><span class="photo-number">${i + 1}</span></button>`).join('')}</div>`;
       const tabs = `<div class="attraction-tabs" role="tablist" aria-label="当天景点照片">${places.map(p => `<button type="button" role="tab" id="attraction-${day}-${p.key}" aria-controls="attraction-panel-${day}" data-attraction="${p.key}" data-album-day="${day}" aria-selected="${p.key === place.key}" tabindex="${p.key === place.key ? 0 : -1}">${escapePhotoText(p.label)}${p.badge ? ' · '+escapePhotoText(p.badge) : ''}</button>`).join('')}</div>`;
-      return `<div class="photo-album" data-photo-album="${day}">${tabs}<div role="tabpanel" id="attraction-panel-${day}" aria-labelledby="attraction-${day}-${place.key}"><p class="attraction-note">${place.badge ? `<em>${escapePhotoText(place.badge)}</em>` : ''}${escapePhotoText(place.note)}</p><p class="photo-gallery-label">${escapePhotoText(place.label)} · ${refs.length} 张拍照与观看参考 · 点大图放大</p><figure class="photo-reference"><button type="button" class="photo-open" data-photo-day="${place.key}" data-photo-index="${selected}" aria-label="放大查看${escapePhotoText(ref.title)}"><img src="${escapePhotoText(credit.src)}" alt="${escapePhotoText(ref.title)}" loading="lazy" width="${credit.width || 768}" height="${credit.height || 960}"><span class="photo-zoom">${selected + 1} / ${refs.length} · 放大 ↗</span></button><figcaption><strong>${escapePhotoText(ref.title)}</strong><p>${escapePhotoText(ref.tip || place.tip)}</p><span class="photo-credit">${photoCreditMarkup(credit)}</span><div class="photo-links"><a href="https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(ref.search || place.label + ' 人像拍照')}" target="_blank" rel="noopener noreferrer">小红书搜索 ↗</a><a href="${escapePhotoText(credit.source)}" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a></div></figcaption>${picks}</figure></div></div>`;
+      const batchBar = `<div class="photo-batch-bar"><button type="button" data-photo-batch="${day}">一键换一批</button><span role="status">${photoBatchCounts[day] ? `已切换 ${photoBatchCounts[day]} 次 · ` : ''}当天所有景点同步切换下一张，从已有图库轮换</span></div>`;
+      return `<div class="photo-album" data-photo-album="${day}">${batchBar}${tabs}<div role="tabpanel" id="attraction-panel-${day}" aria-labelledby="attraction-${day}-${place.key}"><p class="attraction-note">${place.badge ? `<em>${escapePhotoText(place.badge)}</em>` : ''}${escapePhotoText(place.note)}</p><p class="photo-gallery-label">${escapePhotoText(place.label)} · ${refs.length} 张拍照与观看参考 · 点大图放大</p><figure class="photo-reference"><button type="button" class="photo-open" data-photo-day="${place.key}" data-photo-index="${selected}" aria-label="放大查看${escapePhotoText(ref.title)}"><img src="${escapePhotoText(credit.src)}" alt="${escapePhotoText(ref.title)}" loading="lazy" width="${credit.width || 768}" height="${credit.height || 960}"><span class="photo-zoom">${selected + 1} / ${refs.length} · 放大 ↗</span></button><figcaption><strong>${escapePhotoText(ref.title)}</strong><p>${escapePhotoText(ref.tip || place.tip)}</p><span class="photo-credit">${photoCreditMarkup(credit)}</span><div class="photo-links"><a href="https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(ref.search || place.label + ' 人像拍照')}" target="_blank" rel="noopener noreferrer">小红书搜索 ↗</a><a href="${escapePhotoText(credit.source)}" target="_blank" rel="noopener noreferrer">查看原帖 ↗</a></div></figcaption>${picks}</figure></div></div>`;
     }
     const photoDialog = document.getElementById('photo-dialog');
     document.addEventListener('error', event => {
@@ -696,6 +687,20 @@
       showPortrait(activePhoto.day, activePhoto.index + (event.key === 'ArrowRight' ? 1 : -1));
     });
     document.addEventListener('click', event => {
+      const batch = event.target.closest('[data-photo-batch]');
+      if (batch) {
+        const day = Number(batch.dataset.photoBatch);
+        attractionCatalog.filter(place => place.days.includes(day)).forEach(place => {
+          const refs = getPhotoReferences(place.key);
+          if (refs.length < 2) return;
+          const key = `${day}:${place.key}`;
+          selectedPhotoIndexes[key] = ((selectedPhotoIndexes[key] || 0) + 1) % refs.length;
+        });
+        photoBatchCounts[day] = (photoBatchCounts[day] || 0) + 1;
+        batch.closest('.photo-album').outerHTML = renderPhotoReference(day);
+        document.querySelector(`[data-photo-batch="${day}"]`)?.focus({preventScroll:true});
+        return;
+      }
       const attraction = event.target.closest('[data-attraction]');
       if (attraction) {
         const day = Number(attraction.dataset.albumDay);
@@ -807,7 +812,6 @@
     const dayDetail = document.getElementById('day-detail');
     const cityOrder = ['cairo','aswan','abusimbel','komombo','edfu','luxor','dendera','redsea','giza','alexandria'];
     cityOrder.forEach((key,index) => { cities[key].number = index + 1; });
-    document.getElementById('map-stops').innerHTML = cityOrder.map(key => `<span><b>${cities[key].number}</b>${cities[key].name}</span>`).join('');
     days.forEach((item, index) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -1064,14 +1068,72 @@
     document.getElementById('extras').addEventListener('change', updateBudget);
     document.getElementById('exchange-rate').addEventListener('input', updateBudget);
 
+    const checklistGroups = [
+      ['证件与出团资料', [
+        ['passport','护照原件：按通知书核对有效期超过2027年4月6日、至少3页空白页；入境要求再向领队确认'],
+        ['leader','确认护照由谁保管，离线保存领队电话、集合地点与出团通知'],
+        ['insurance','保存保单及境外救援电话，核对医疗、紧急运送、取消及自费活动保障范围'],
+        ['visa','确认签证办理方式、所需材料与费用；不默认落地后才办理'],
+        ['copies','护照资料页、签证、机票各备离线副本，纸质备份与原件分开放'],
+        ['emergency','把领队、保险救援及紧急联系人号码存入通讯录；私人证件不上传公开网页'],
+        ['tickets','核对机票英文姓名、MS959/MS082/MS958日期和时刻，以及内飞转机安排']
+      ]],
+      ['交通与行李', [
+        ['allowance','通知书托运1件23kg；国际、内飞及手提件数和重量均按出票核对'],
+        ['transit','厦门往返广州交通已订并留足缓冲，返厦票优先可退改'],
+        ['meeting','9月26日20:00广州白云T3、66号门集合；出发当天再次核对航变与集合通知'],
+        ['luggage','出门前称重、拍行李箱照片、贴行李牌；贵重物品和首日换洗放随身包'],
+        ['liquids','随身液体单瓶不超过100ml、放入不超过1L透明可封口袋；以安检要求为准'],
+        ['restricted','不带无人机；专业拍摄、无线通信等设备如需携带，先核实入境与航空限制']
+      ]],
+      ['衣物与日用品', [
+        ['sun','SPF50+防晒霜、遮阳帽、墨镜、防晒长袖'],
+        ['layers','薄外套、长裤或长裙；清真寺遮盖用薄围巾'],
+        ['swim','参加红海活动者带泳衣、水母衣、涉水鞋及防水袋'],
+        ['shoes','已穿惯的防滑步行鞋、袜子；不穿新鞋赶长途景点'],
+        ['clothes','足量内衣、速干换洗、睡衣、脏衣袋和少量洗衣用品'],
+        ['wash','牙刷牙膏、洗漱用品、拖鞋、纸巾与湿巾；大瓶液体托运'],
+        ['sleep','颈枕、眼罩、耳塞及空调机舱用外层']
+      ]],
+      ['药品与个人护理', [
+        ['medicine','补液盐、常用肠胃药及适用的晕车药；用法按说明或医生建议，不自行混药'],
+        ['prescriptions','常用处方药带够全程并留余量，原包装及处方/英文说明随身；特殊药品核实入境限制'],
+        ['firstaid','创可贴、磨脚贴及小份个人急救用品'],
+        ['sanitizer','便携免洗洗手液按液体规定装袋，另带清洁湿巾'],
+        ['hygiene','个人生理用品、润唇膏和保湿用品'],
+        ['repellent','按需带驱蚊用品，喷雾类先核对航空运输限制'],
+        ['glasses','按需带备用眼镜、隐形眼镜及护理液；护理液也需满足安检规则']
+      ]],
+      ['电子设备与网络', [
+        ['adapter','欧标两圆脚转换插头；核对充电器支持当地220V/50Hz电源'],
+        ['powerbank','充电宝容量与标识清晰，国内段核对3C及召回要求；仅随身携带'],
+        ['chargers','手机/相机充电器、所需线缆与备用线；两人不要只带一根共用线'],
+        ['sim','流量卡、eSIM或漫游已确认兼容、启用日期及流量；国内号保留接收验证码能力'],
+        ['offline','下载离线地图与翻译包；网页重点行程截图，离线打不开时仍可查看'],
+        ['camera','清理手机容量，备份旧照片；相机电池、存储卡和腕带齐全'],
+        ['batteries','备用锂电池随身、防短路；机上充电宝使用和存放遵循航司要求']
+      ]],
+      ['资金与离家检查', [
+        ['cash','少量干净USD 1、5、10面额现金；零钱与主要现金分开放'],
+        ['cards','核对银行卡境外支付开关、额度与客服号码；不只依赖一种付款方式'],
+        ['extras','两人确认自费项目预算、币种及已含费用，避免重复支付'],
+        ['valuables','证件、现金和银行卡分开保管，随身小包可关闭且不离身'],
+        ['home','离家前检查门窗、燃气、水电及垃圾，按需安排宠物或植物照看'],
+        ['family','给家人留行程与紧急联络方式，确认家中照护安排；药品、证件最后再核对一次']
+      ]]
+    ];
+    document.getElementById('checklist').innerHTML = checklistGroups.map(([title,items],i) => `<details class="check-group" ${i === 0 ? 'open' : ''}><summary>${title}<span class="check-group-count"></span></summary><div class="check-group-items">${items.map(([id,label]) => `<label class="check-item"><input type="checkbox" data-check-id="${id}"><span>${escapePhotoText(label)}</span></label>`).join('')}</div></details>`).join('');
     const checks = [...document.querySelectorAll('#checklist input')];
+    const legacyCheckIds = ['passport','leader','insurance','sun','layers','swim','medicine','sleep','wash','adapter','powerbank','cash','sim','allowance','transit','restricted'];
     try {
-      const saved = JSON.parse(localStorage.getItem('egypt-checklist-2026') || '[]');
-      checks.forEach((input, i) => input.checked = Boolean(saved[i]));
-      if (localStorage.getItem('egypt-notice-checklist-version') !== '2026-09-22') {
-        [1,8,13].forEach(i => checks[i].checked = false);
-        localStorage.setItem('egypt-notice-checklist-version', '2026-09-22');
+      const current = localStorage.getItem('egypt-checklist-2026-v2');
+      let saved = current ? JSON.parse(current) : {};
+      if (!current) {
+        const legacy = JSON.parse(localStorage.getItem('egypt-checklist-2026') || '[]');
+        const oldNotice = localStorage.getItem('egypt-notice-checklist-version') !== '2026-09-22';
+        legacyCheckIds.forEach((id,i) => { saved[id] = Boolean(legacy[i]) && !(oldNotice && [1,8,13].includes(i)); });
       }
+      checks.forEach(input => input.checked = saved[input.dataset.checkId] === true);
     } catch (_) {}
 
     function updateChecklist() {
@@ -1081,7 +1143,11 @@
       document.getElementById('check-progress-bar').style.width = `${percent}%`;
       const progress = document.querySelector('.check-progress');
       progress.setAttribute('aria-valuenow', String(count));
-      try { localStorage.setItem('egypt-checklist-2026', JSON.stringify(checks.map(input => input.checked))); } catch (_) {}
+      progress.setAttribute('aria-valuemax', String(checks.length));
+      document.querySelectorAll('.check-group').forEach(group => {
+        group.querySelector('.check-group-count').textContent = `${group.querySelectorAll('input:checked').length} / ${group.querySelectorAll('input').length}`;
+      });
+      try { localStorage.setItem('egypt-checklist-2026-v2', JSON.stringify(Object.fromEntries(checks.map(input => [input.dataset.checkId,input.checked])))); } catch (_) {}
     }
     checks.forEach(input => input.addEventListener('change', updateChecklist));
     updateChecklist();
