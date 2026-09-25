@@ -13,3 +13,34 @@ const departureNoticeUpdates = {
   10: {detail:'亚历山大往返约6小时车程；图书馆、庞培柱、剧场外观、凯特贝城堡；晚餐后去机场，10月6日00:20飞广州。',schedule:'单程约3小时，途中休息站约30分钟；图书馆35分钟、庞培柱45分钟、剧场外观10分钟、凯特贝城堡1小时。回开罗吃中餐，约21:15前到机场候机。',meal:'酒店早餐、地中海海鲜午餐、中式晚餐升级10菜1汤。',stay:'夜宿飞机；MS958按航班确认表为10月6日00:20起飞（当地时间）。',before:'早晨退房时完成返程打包；按通知书托运1件23kg。返程表00:20与正文00:15有冲突，出票/航变优先，仍按约21:15到机场预留缓冲。'},
   11: {detail:'MS958按航班确认表15:30抵达广州；先入境取行李，再衔接厦门，晚班票留足缓冲并可退改。',schedule:'10月6日开罗00:20起飞 → 广州15:30抵达，均为当地时间。正文仍有15:15旧值，暂以航班表为准，最终看机票及航变。',meal:'通知书列机上早餐，其余按航司实际供应；落地后餐食自理。'}
 };
+
+// Concise display copy from the reviewed notice above. No new clock times inferred.
+Object.assign(departureNoticeUpdates[2], {
+  plan:'白天参观后入住休整，再看晚间声光秀。',
+  schedule:'04:50抵达开罗 → 06:45—08:05飞阿斯旺 → 乘车约3.5小时 → 阿布辛贝参观约2小时 → 酒店休整 → 晚间声光秀约1小时。'
+});
+Object.assign(departureNoticeUpdates[3], {
+  detail:'早餐后乘车约3.5小时回阿斯旺；大坝约1小时、方尖碑约30分钟，之后帆船、努比亚村、老瀑布下午茶与菲莱。',
+  schedule:'早餐后出发 → 车程约3.5小时 → 大坝约1小时 → 方尖碑约30分钟 → 帆船与努比亚村 → 老瀑布下午茶 → 菲莱神庙。',
+  before:'返程车程加上多处停留，节奏偏紧；前夜向领队确认叫早、登船与用餐安排。'
+});
+Object.assign(departureNoticeUpdates[4], {
+  schedule:'早餐后 → 康翁波约1小时 → 埃德福约30分钟 → 伊斯纳水闸 → 卢克索；通闸与参观顺序随船期调整。'
+});
+Object.assign(departureNoticeUpdates[5], {
+  detail:'卡纳克约1.5小时；Felucca帆船；市集约1小时；马车及卢克索神庙外观合计约30分钟。',
+  schedule:'卡纳克约1.5小时 → Felucca帆船 → 市集约1小时 → 马车与神庙外观约30分钟 → 回船。帆船遇不适宜天气改机动船。'
+});
+Object.assign(departureNoticeUpdates[6], {
+  schedule:'早餐后退船 → 车程约1小时 → 丹达拉约50分钟 → 车程约3小时 → 红海酒店用餐与自由活动。'
+});
+Object.assign(departureNoticeUpdates[7], {
+  detail:'红海自由活动，享受酒店与海滩；可另行报名出海浮潜。',
+  schedule:'全天自由活动，无统一出发时刻；如自费参加浮潜，活动约4小时，集合时间由项目方确认。'
+});
+Object.assign(departureNoticeUpdates[10], {
+  detail:'亚历山大单程约3小时；图书馆35分钟、庞培柱45分钟、剧场外观10分钟、凯特贝城堡1小时；约21:15前到机场。'
+});
+Object.assign(departureNoticeUpdates[11], {
+  detail:'00:20从开罗起飞，15:30抵达广州（当地时间）；入境取行李后返厦门。'
+});

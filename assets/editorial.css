@@ -1,0 +1,94 @@
+/* Quiet travel journal: paper, type, hairlines, photography. */
+:root { --sand-light:#faf8f3; --paper:#faf8f3; --ink:#343a35; --muted:#777b73; --nile:#596f63; --night:#3c5147; --line:#dddcd3; --gold:#b29c78; }
+body { background:#faf8f3; }
+.hero { background:#ede6d9; }
+.metrics { border-radius:0; box-shadow:none; background:#faf8f3; border-width:0 0 1px; }
+.metric strong { font-family:Georgia,"Songti SC",serif; font-weight:500; }
+.transit-strip { color:var(--ink); background:none; border-radius:0; padding:14px 0; border-bottom:1px solid var(--line); }
+.transit-strip span { color:var(--muted); }
+.transit-strip strong { font-weight:500; }
+.route-section,.tools-section { background:transparent; }
+.route-layout { gap:40px; }
+.map-panel { border:0; border-radius:3px; box-shadow:none; }
+.map-head { padding:10px 0 14px; }
+.map-head strong { font-family:Georgia,"Songti SC",serif; font-weight:500; font-size:18px; }
+.timeline,.tool-tabs { padding:0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:var(--paper); gap:8px; }
+.day-tab,.tool-tab { border-radius:0; border-bottom:2px solid transparent; }
+.day-tab[aria-selected="true"],.tool-tab[aria-selected="true"] { color:var(--ink); background:transparent; border-bottom-color:var(--nile); }
+.day-tab:hover,.tool-tab:hover { background:#f1efe8; }
+.day-detail { padding:24px 0; border:0; border-radius:0; box-shadow:none; background:none; }
+.day-detail-index { width:44px; color:var(--nile); background:none; border-radius:0; border-top:1px solid #a7b1a6; font-family:Georgia,serif; font-size:19px; font-weight:400; }
+.day-title { font-family:Georgia,"Songti SC","Noto Serif SC",serif; font-size:25px; font-weight:500; letter-spacing:.02em; line-height:1.5; }
+.day-copy { margin-top:10px; line-height:1.85; }
+.day-date { font-weight:500; letter-spacing:.12em; color:var(--muted); }
+.day-content-tabs { margin-top:22px; padding:0; gap:12px; background:var(--paper); border-radius:0; border-bottom:1px solid var(--line); box-shadow:none; }
+.day-content-tabs button { background:none; border-radius:0; border-bottom:1px solid transparent; color:var(--muted); }
+.day-content-tabs button[aria-selected="true"] { background:none; color:var(--ink); border-bottom-color:var(--ink); }
+.day-content-panel { margin-top:20px; }
+.day-guide,.day-guide.play,.day-guide.caution { padding:0; border-radius:0; background:none; }
+.site-caution-head b { font-weight:500; }
+.site-caution-head button { color:var(--muted); border:0; border-bottom:1px solid var(--line); border-radius:0; background:none; padding:5px 0; }
+.site-note { border-color:var(--line); }
+.site-note summary,.scenic-tip summary { font-weight:500; color:var(--ink); }
+.site-note summary em { color:var(--muted); }
+.day-guide .site-note li strong,.day-guide li strong { color:var(--ink); font-weight:500; }
+.scenic-tip { border-color:var(--line); }
+.attraction-tabs { gap:18px; padding:0 0 7px; }
+.attraction-tabs button { padding:8px 0; border:0; border-bottom:1px solid transparent; border-radius:0; background:none; color:var(--muted); }
+.attraction-tabs button[aria-selected="true"] { background:none; color:var(--ink); border-bottom-color:var(--nile); }
+.photo-reference { grid-template-columns:minmax(0,1fr); padding:0; border:0; border-radius:0; background:none; margin:14px 0 22px; gap:14px; }
+.photo-open { border-radius:2px; background:#eeece5; }
+.photo-open img { height:380px; }
+.photo-open .photo-zoom { color:#3c5147; background:#faf8f3dd; border-radius:2px; font-weight:400; }
+.photo-reference figcaption { font-size:13px; line-height:1.8; }
+.photo-reference strong { color:var(--ink); font-family:Georgia,"Songti SC",serif; font-size:19px; font-weight:500; }
+.photo-reference p { color:var(--muted); margin:8px 0; }
+.photo-reference .photo-credit { font-size:11px; }
+.photo-credit a { text-decoration-color:#c7c8bf; }
+.photo-picks { flex-wrap:nowrap; overflow-x:auto; gap:9px; padding-bottom:4px; }
+.photo-picks button { flex-shrink:0; padding:0 0 5px; border:0; border-bottom:1px solid transparent; border-radius:0; background:none; }
+.photo-picks button[aria-pressed="true"] { background:none; border-color:var(--nile); }
+.photo-picks img { width:48px; height:62px; }
+.photo-picks .photo-number { display:none; }
+.tool-panel,.tool-panel.money-panel,.tool-panel.return-panel { color:var(--ink); padding:26px 0; border:0; border-radius:0; background:none; }
+.tool-panel-head h3 { font-size:28px; }
+.prep-grid { margin-top:0; }
+.site-note summary::marker { color:var(--muted); }
+.day-guide.caution .site-caution-head b { color:var(--ink); }
+.transit-arrow { color:var(--muted); }
+.weather-callout { padding:16px 0; border:0; background:none; }
+.weather-callout p { color:var(--muted); }
+.day-content-panel .day-fact.climate { background:none; border-radius:0; padding:10px 0; }
+.day-fact b,.day-fact.climate b { color:var(--muted); font-weight:500; }
+.total-box,.extra,.return-card,.check-group { background:none; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:16px 0; }
+.total-box { padding-top:0; }
+.total { font-family:Georgia,serif; font-weight:400; }
+.total-label,.total-note,.rate-line,.extra span,.money-warning,.return-card ul,.return-card span,.money-panel .tool-panel-lead,.return-panel .tool-panel-lead { color:var(--muted); }
+.rate-line input { color:var(--ink); background:none; border-color:var(--line); border-radius:2px; }
+.check-group { padding:0; }
+.check-group summary { font-weight:500; }
+.check-progress { height:3px; }
+.return-card h3 { font-weight:500; font-family:Georgia,"Songti SC",serif; }
+footer { padding:30px 0; color:var(--muted); background:none; border-top:1px solid var(--line); }
+.footer-inner { align-items:start; }
+.footer-inner strong,.source-link { color:var(--ink); }
+.photo-dialog { background:var(--paper); border-radius:3px; }
+@media(max-width:640px) {
+  .container { width:calc(100% - 36px); }
+  .route-layout { gap:22px; }
+  .timeline { background:#faf8f3f5; border-radius:0; }
+  .day-detail { padding:18px 0 0; }
+  .day-detail-head { grid-template-columns:32px minmax(0,1fr); gap:10px; }
+  .day-detail-index { width:30px; height:32px; font-size:17px; }
+  .day-title { font-size:23px; }
+  .day-copy { font-size:13px; }
+  .day-content-tabs { top:63px; gap:6px; box-shadow:none; background:#faf8f3f7; }
+  .day-content-tabs button { font-size:12px; }
+  .day-guide { padding:0; }
+  .photo-reference { padding:0; }
+  .photo-open img { height:330px; }
+  .tool-tabs { margin-right:0; padding-right:0; border-radius:0; }
+  .tool-panel { padding:20px 0; }
+  .map-head { padding:6px 0 12px; }
+  .photo-picks img { width:44px; height:56px; }
+}
